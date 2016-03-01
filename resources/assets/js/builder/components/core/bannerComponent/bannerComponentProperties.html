@@ -1,0 +1,31 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Banner {{id}} Properties
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="form-group">
+          <label>Banner Alt Value</label>
+          <input type="text" class="form-control" required data-ng-model="edm.components[id].properties.alt" value="{{edm.components[id].properties.alt}}">
+        </div>
+        <div class="form-group">
+          <label>Banner Title Value</label>
+          <input type="text" class="form-control" required data-ng-model="edm.components[id].properties.title" value="{{edm.components[id].properties.title}}">
+        </div>
+        <div class="form-group">
+          <label>Banner Src Value</label>
+          <input type="text" class="form-control" required data-ng-model="edm.components[id].properties.src" value="{{edm.components[id].properties.src}}">
+          <input type="file" onchange="angular.element(this).scope().edm.uploadFile(this.files[0]);">
+        </div>
+        <div class="form-group">
+          <a class="btn btn-danger btn-block" href="javascript:void(0);" data-ng-click="edm.deleteComponent(id);"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

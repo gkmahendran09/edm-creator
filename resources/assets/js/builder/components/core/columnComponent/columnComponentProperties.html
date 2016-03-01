@@ -1,0 +1,45 @@
+<div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
+  <div class="panel panel-default">
+    <div id="headingOne" role="tab" class="panel-heading">
+      <h4 class="panel-title">
+        <a aria-controls="collapseOne" aria-expanded="true" href="#collapseOne" data-parent="#accordion" data-toggle="collapse" role="button" class="ng-binding">
+          Row {{parentid + 1 }} Column {{id + 1}} Properties
+        </a>
+      </h4>
+    </div>
+    <div aria-labelledby="headingOne" role="tabpanel" class="panel-collapse collapse in" id="collapseOne">
+      <div class="panel-body">
+        <div class="form-group">
+          <label>Background Color</label>
+          <input colorpicker type="text" class="form-control" required data-ng-model="edm.rows[parentid].columns[id].backgroundColor" value="{{edm.rows[parentid].columns[id].backgroundColor}}">
+        </div>
+        <div class="form-group">
+          <label>Content</label>
+          <textarea class="form-control" required data-ng-model="edm.rows[parentid].columns[id].content" >
+            {{edm.rows[parentid].columns[id].content}}
+          </textarea>
+
+        </div>
+        <div class="form-group">
+          <label>Rows</label>
+          <a data-ng-click="edm.addRowBottom();" class="btn btn-block btn-primary" href="javascript:void(0);">
+            Add Row Bottom
+          </a>
+        </div>
+        <div class="form-group">
+          <label>Columns</label>
+          <a data-ng-click="edm.addColumnEnd(parentid);" class="btn btn-block btn-warning" href="javascript:void(0);">
+            Add Column End
+          </a>
+        </div>
+        <div class="form-group">
+          <label>Special Components</label>
+          <a data-ng-click="edm.addBannerImage(parentid, id);" class="btn btn-block btn-success" href="javascript:void(0);">
+            Add Banner Image
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

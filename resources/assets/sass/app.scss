@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+// base
+@import "core/settings";        // color + font variables
+@import "core/fonts";           // fonts
+
+// third party components
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap"; // bootstrap
+
+$fa-font-path:"/fonts";
+@import "node_modules/font-awesome/scss/font-awesome"; // font-awesome
+
+.yErrMsg, .error_msg {
+  color: red;
+}
+
+
+// EDIT EDM Container
+#edit-edm table {
+  border-collapse: separate;
+  padding: 10px;
+}

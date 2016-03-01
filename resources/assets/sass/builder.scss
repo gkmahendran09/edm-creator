@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+// base
+@import "core/settings";        // color + font variables
+@import "core/fonts";           // fonts
+
+// third party components
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap"; // bootstrap
+
+$fa-font-path:"/fonts";
+@import "node_modules/font-awesome/scss/font-awesome"; // font-awesome
+
+.yErrMsg, .error_msg {
+  color: red;
+}
+
+$edm-border-color: #999;
+$edm-hover-border-color: #f00;
+
+// EDIT EDM Container
+#edit-edm table {
+  border-collapse: separate;
+}
+
+#edm-document {
+  border: 1px solid $edm-border-color;
+}
+
+#edm-document:hover, #edm-document.active {
+  border: 1px dashed $edm-hover-border-color;
+}
+
+ .floating-section {
+   position: fixed;
+ }
+ #edm-properties {
+   right: 0;
+ }
+ #edm-components {
+   left: 0;
+ }

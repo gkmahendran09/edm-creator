@@ -1,0 +1,45 @@
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          EDM Properties
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="form-group">
+          <label>EDM Width</label>
+          <input type="text" class="form-control" required data-ng-model="edm.properties.width" value="{{edm.properties.width}}">
+        </div>
+        <div class="form-group">
+          <label>EDM Height</label>
+          <input type="text" class="form-control" required data-ng-model="edm.properties.height" value="{{edm.properties.height}}">
+        </div>
+        <div class="form-group">
+          <label>EDM Border Color</label>
+          <input colorpicker type="text" class="form-control" required data-ng-model="edm.properties.borderColor" value="{{edm.properties.borderColor}}">
+        </div>
+        <div class="form-group">
+          <label>EDM Padding Top(px)</label>
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingTop" value="{{edm.properties.paddingTop}}">
+        </div>
+        <div class="form-group">
+          <label>EDM Padding Right(px)</label>
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingRight" value="{{edm.properties.paddingRight}}">
+        </div>
+        <div class="form-group">
+          <label>EDM Padding Bottom(px)</label>
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingBottom" value="{{edm.properties.paddingBottom}}">
+        </div>
+        <div class="form-group">
+          <label>EDM Padding Left(px)</label>
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingLeft" value="{{edm.properties.paddingLeft}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
