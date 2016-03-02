@@ -18,10 +18,30 @@
           <input type="text" class="form-control" required data-ng-model="edm.components[id].properties.title" value="{{edm.components[id].properties.title}}">
         </div>
         <div class="form-group">
-          <label>Banner Src Value</label>
-          <input type="text" class="form-control" required data-ng-model="edm.components[id].properties.src" value="{{edm.components[id].properties.src}}">
-          <input type="file" onchange="angular.element(this).scope().edm.uploadFile(this.files[0]);">
+          <label>Present Banner</label>
+          <img ng-attr-src="{{edm.components[id].properties.src}}"  width="100">
         </div>
+        <div class="form-group">
+          <label>Change Banner</label>
+          <div class="list-group">
+            <p data-ng-click="edm.components[id].properties.src = (i | assetURL)" data-ng-repeat="i in edm.imageAssets" class="list-group-item">
+              <img ng-attr-src="{{i | assetURL}}"  width="100">
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          Other
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
         <div class="form-group">
           <a class="btn btn-danger btn-block" href="javascript:void(0);" data-ng-click="edm.deleteComponent(id);"><span class="glyphicon glyphicon-trash"></span> Delete</a>
         </div>

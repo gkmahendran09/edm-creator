@@ -58,9 +58,14 @@ Route::controller('/user/password' , 'User\PasswordController');
 
 //EDM Management
 Route::get('/user/edm/front-end-template', ['uses' => 'User\EDMController@frontEndTemplate', 'as' => 'user.edm.front_end_template']);
+Route::get('/user/edm/front-end-asset', ['uses' => 'User\EDMController@frontEndAsset', 'as' => 'user.edm.front_end_asset']);
 Route::get('/user/edm/{id}/preview', ['uses' => 'User\EDMController@preview', 'as' => 'user.edm.preview']);
 Route::post('/user/edm/{id}/download', ['uses' => 'User\EDMController@download', 'as' => 'user.edm.download']);
-Route::post('/user/edm/{id}/image-upload', ['uses' => 'User\EDMController@imageUpload', 'as' => 'user.edm.image_upload']);
+ // EDM Asset Manager
+Route::get('/user/edm/{id}/asset-manager', ['uses' => 'User\EDMController@getAssetManager', 'as' => 'user.edm.get_asset_manager']);
+Route::post('/user/edm/{id}/asset-manager', ['uses' => 'User\EDMController@postAssetManager', 'as' => 'user.edm.post_asset_manager']);
+Route::delete('/user/edm/{id}/asset-manager', ['uses' => 'User\EDMController@deleteAssetManager', 'as' => 'user.edm.delete_asset_manager']);
+
 Route::resource('/user/edm' , 'User\EDMController');
 
 Route::controller('/user' , 'User\UserController', [

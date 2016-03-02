@@ -32,6 +32,9 @@ $edm-hover-border-color: #f00;
 
  .floating-section {
    position: fixed;
+   max-height: 90%;
+   overflow-y: auto;
+   overflow-x: hidden;
  }
  #edm-properties {
    right: 0;

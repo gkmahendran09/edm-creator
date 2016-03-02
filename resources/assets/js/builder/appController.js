@@ -52,11 +52,6 @@ function edmController($scope, $compile) {
           }
       };
 
-      // Delete a Component
-      $scope.edm.uploadFile = function(file) {
-          console.log(file);
-      };
-
       // Add Row - Bottom
       $scope.edm.addRowBottom = function() {
         var newRowId = $scope.edm.rows.length;

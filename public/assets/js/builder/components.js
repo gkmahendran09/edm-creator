@@ -1,24 +1,23 @@
 angular.module('app.components',[]);
 
-angular.module('app.components').directive('component', component);
+angular.module('app.components').directive('bannerComponent', bannerComponent);
 
-function component() {
+function bannerComponent() {
     return {
         scope: {
-          c: '=',
+          id: '=',
           edm: '='
         },
-        link          : componentLinkFunction
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
+        link          : bannerComponentLinkFunction
     }
 }
 
-function componentLinkFunction(scope, elem, attrs) {
-  var directiveName = scope.c.directiveName;
-  var html = scope.edm.doCompile(scope, directiveName);
-  elem.append(html);
+function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
-    // return false;
+    var propertiesTemplate = '<banner-component-properties edm="edm" id="' + attrs.id + '"></banner-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
   });
 }
 
@@ -27,11 +26,15 @@ function componentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('componentProperties', componentProperties);
+angular.module('app.components').directive('bannerComponentProperties', bannerComponentProperties);
 
-function componentProperties() {
+function bannerComponentProperties() {
     return {
-        templateUrl   : getTemplateURL("/components/core/component/componentProperties.html"),
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
     }
 }
 
@@ -90,24 +93,25 @@ function columnComponentPropertiesLinkFunction($scope, elem, attrs) {
     });
 }
 
-angular.module('app.components').directive('bannerComponent', bannerComponent);
+angular.module('app.components').directive('component', component);
 
-function bannerComponent() {
+function component() {
     return {
         scope: {
-          id: '=',
+          c: '=',
           edm: '='
         },
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
-        link          : bannerComponentLinkFunction
+        link          : componentLinkFunction
     }
 }
 
-function bannerComponentLinkFunction(scope, elem, attrs) {
+function componentLinkFunction(scope, elem, attrs) {
+  var directiveName = scope.c.directiveName;
+  var html = scope.edm.doCompile(scope, directiveName);
+  elem.append(html);
   elem.bind('click', function() {
-    var propertiesTemplate = '<banner-component-properties edm="edm" id="' + attrs.id + '"></banner-component-properties>';
-    scope.edm.showProperties(propertiesTemplate);
-    return false;
+    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
+    // return false;
   });
 }
 
@@ -116,15 +120,11 @@ function bannerComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('bannerComponentProperties', bannerComponentProperties);
+angular.module('app.components').directive('componentProperties', componentProperties);
 
-function bannerComponentProperties() {
+function componentProperties() {
     return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
+        templateUrl   : getTemplateURL("/components/core/component/componentProperties.html"),
     }
 }
 

@@ -205,22 +205,112 @@ class EDMController extends Controller
 	{
 		$path = base_path() . '/resources/assets/js/builder' . request()->path;
 		if(file_exists($path)) {
-			$file = file_get_contents($path);			
+			$file = file_get_contents($path);
 			return response($file, 200)->header('Content-Type', 'text/html');
 		} else {
 			abort('404');
 		}
 	}
 
-	public function imageUpload($id)
+	//---------------------------------------------
+	// Asset Management
+	//---------------------------------------------
+
+	public function frontEndAsset()
 	{
-		dd("ok");
+		$path = storage_path() . request()->path;
+		if(file_exists($path)) {
+			$file = file_get_contents($path);
+			return response($file, 200);
+		} else {
+			abort('404');
+		}
+	}
+
+	public function getAssetManager($id)
+	{
+		$user_id = Auth::user()->id;
+		$edm = EDM::where('user_id', $user_id)->findOrFail($id);
+		$scope_values = json_decode($edm->scope_values);
+
+		$image_assets = $scope_values->imageAssets;
+
+		return view('user.edm.asset_manager')->with(['edm' => $edm, 'image_assets' => $image_assets]);
+
+	}
+
+	public function postAssetManager($id, Request $request)
+	{
 		$user_id = Auth::user()->id;
 		$edm = EDM::where('user_id', $user_id)->findOrFail($id);
 
-		$package_path = self::createZip($user_id, $edm);
+		$rules = array(
+			'image' => 'required|max:500|mimes:png,gif,jpeg,jpg'
+		);
 
+		$validator = Validator::make($request->all(), $rules);
 
-		return response()->download($package_path);
+		if ($validator->fails() || !$request->file('image')->isValid())
+		{
+			return redirect()->back()->withInput()->withErrors($validator->errors());
+		}
+		else
+		{
+			$destinationPath = '/app/edms/'. $user_id . '-' . str_slug($edm->edm_name) . '/images';
+			$fileName = uniqid() . "." . $request->file('image')->getClientOriginalExtension();
+
+			$full_path = $destinationPath . "/" . $fileName;
+
+			$request->file('image')->move(storage_path() . $destinationPath, $fileName);
+
+			$scope_values = json_decode($edm->scope_values);
+
+			array_push($scope_values->imageAssets, $full_path);
+
+			$new_scope_values = $scope_values;
+
+			$edm->scope_values 		= json_encode($new_scope_values);
+			$edm->updated_by      = Session("USER.name");
+
+			$edm->save();
+
+			Session::flash('flash_success', 'New asset Added!');
+
+			return redirect()->route('user.edm.get_asset_manager',['id' => $id]);
+		}
+
 	}
+
+
+	public function deleteAssetManager($id, Request $request)
+	{
+		$user_id = Auth::user()->id;
+		$edm = EDM::where('user_id', $user_id)->findOrFail($id);
+
+		$scope_values = json_decode($edm->scope_values);
+
+
+		$file_path = storage_path() . $scope_values->imageAssets[$request->input('image_asset_id')];
+		if(file_exists($file_path)) {
+			unlink($file_path);
+		}
+
+		array_splice($scope_values->imageAssets, $request->input('image_asset_id'), 1);
+
+		$new_scope_values = $scope_values;
+
+		$edm->scope_values 		= json_encode($new_scope_values);
+		$edm->updated_by      = Session("USER.name");
+
+		$edm->save();
+
+		Session::flash('flash_success', 'Asset Deleted!');
+
+		return redirect()->route('user.edm.get_asset_manager',['id' => $id]);
+
+	}
+
+	//---------------------------------------------
+	// END:: Asset Management
+	//---------------------------------------------
 }

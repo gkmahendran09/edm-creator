@@ -1,7 +1,25 @@
-var filter = angular.module('app.filters', ['ngSanitize']).filter('trustAsHtml', trustAsHTMLFilter);
+angular.module('app.filters', ['ngSanitize']).filter('trustAsHtml', trustAsHTMLFilter);
+
+angular.module('app.filters').filter('assetURL', assetURLFilter);
+
+angular.module('app.filters').filter('basename', basenameFilter);
 
 function trustAsHTMLFilter($sce) {
   return $sce.trustAsHtml;
+}
+
+function assetURLFilter() {
+  return function(input) {
+      return getAssetURL(input);
+  }
+}
+
+function basenameFilter() {
+  return function(input) {
+      var valArr = input.split("/");
+      var val = valArr[(valArr.length) - 1];
+      return val;
+  }
 }
 
 angular.module('app.controllers', []).controller('edmController', edmController);
@@ -58,11 +76,6 @@ function edmController($scope, $compile) {
           }
       };
 
-      // Delete a Component
-      $scope.edm.uploadFile = function(file) {
-          console.log(file);
-      };
-
       // Add Row - Bottom
       $scope.edm.addRowBottom = function() {
         var newRowId = $scope.edm.rows.length;
@@ -107,6 +120,11 @@ $(document).ready(function() {
 //--------------------------------------------------------------------------
 //=> Reusable Functions
 //--------------------------------------------------------------------------
+
+// Get Asset URL
+function getAssetURL(path) {
+  return '/user/edm/front-end-asset?path=' + path;
+}
 
 // Get Template URL
 function getTemplateURL(path) {

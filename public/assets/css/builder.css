@@ -11050,6 +11050,9 @@ button.close {
 
 .floating-section {
   position: fixed;
+  max-height: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #edm-properties {

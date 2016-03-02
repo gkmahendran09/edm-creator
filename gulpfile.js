@@ -30,7 +30,10 @@ elixir(function(mix) {
     ],
     'public/assets/css/builder/plugins.css');
 
-    mix.scripts([jqueryPath, jqueryMigratePath, bootstrapPath, 'plugins/angular.min.js', 'plugins/angular-sanitize.min.js'],
+    mix.scripts([jqueryPath, jqueryMigratePath, bootstrapPath,
+      'plugins/angular.min.js',
+      'plugins/angular-route.js',      
+      'plugins/angular-sanitize.min.js'],
           'public/assets/js/builder/plugins.js');
 
     mix.scriptsIn("resources/assets/js/builder/components", "public/assets/js/builder/components.js");

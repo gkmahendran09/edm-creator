@@ -15,6 +15,11 @@ $(document).ready(function() {
 //=> Reusable Functions
 //--------------------------------------------------------------------------
 
+// Get Asset URL
+function getAssetURL(path) {
+  return '/user/edm/front-end-asset?path=' + path;
+}
+
 // Get Template URL
 function getTemplateURL(path) {
   return '/user/edm/front-end-template?path=' + path;
