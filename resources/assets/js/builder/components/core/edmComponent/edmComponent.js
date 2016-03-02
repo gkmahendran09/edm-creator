@@ -1,4 +1,4 @@
-angular.module('app.components').directive('edmComponent', edmComponent);
+angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
 
 function edmComponent() {
     return {
@@ -24,7 +24,7 @@ function edmComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('edmComponentProperties', edmComponentProperties);
+angular.module('app.components').directive('rgedmEdmComponentProperties', edmComponentProperties);
 
 function edmComponentProperties() {
     return {

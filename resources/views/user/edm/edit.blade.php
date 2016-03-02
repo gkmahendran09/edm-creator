@@ -52,10 +52,10 @@
 							</div>
 						</div>
 						<div class="panel-body table-responsive">
-							<div id="edm-document" class="edm-component active" data-ng-click="edm.showProperties('<edm-component-properties></edm-component-properties>')">
-								<edm-component edm='edm'>
-									<component data-ng-repeat='c in edm.components' edm='edm' c='c'></component>
-								</edm-component>
+							<div id="edm-document" class="edm-component active" data-ng-click="edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>')">
+								<rgedm-edm-component edm='edm'>
+									<rgedm-component data-ng-repeat='c in edm.components' edm='edm' c='c'></rgedm-component>
+								</rgedm-edm-component>
 							</div>
 						</div>
 					</div>

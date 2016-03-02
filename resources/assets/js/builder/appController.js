@@ -47,7 +47,7 @@ function edmController($scope, $compile) {
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
             delete $scope.edm.components[id];
-            $scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
+            $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
             alert("Component " + id + " Deleted");
           }
       };

@@ -1,4 +1,4 @@
-angular.module('app.components').directive('bannerComponent', bannerComponent);
+angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
 
 function bannerComponent() {
     return {
@@ -6,6 +6,7 @@ function bannerComponent() {
           id: '=',
           edm: '='
         },
+        replace: true,
         templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
         link          : bannerComponentLinkFunction
     }
@@ -13,7 +14,7 @@ function bannerComponent() {
 
 function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    var propertiesTemplate = '<banner-component-properties edm="edm" id="' + attrs.id + '"></banner-component-properties>';
+    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
     scope.edm.showProperties(propertiesTemplate);
     return false;
   });
@@ -24,7 +25,7 @@ function bannerComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('bannerComponentProperties', bannerComponentProperties);
+angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
 
 function bannerComponentProperties() {
     return {

@@ -1,4 +1,4 @@
-angular.module('app.components').directive('rowComponent', rowComponent);
+angular.module('app.components').directive('rgedmRowComponent', rowComponent);
 
 function rowComponent() {
     return {

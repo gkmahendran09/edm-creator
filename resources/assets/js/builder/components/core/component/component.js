@@ -1,4 +1,4 @@
-angular.module('app.components').directive('component', component);
+angular.module('app.components').directive('rgedmComponent', component);
 
 function component() {
     return {
@@ -6,6 +6,7 @@ function component() {
           c: '=',
           edm: '='
         },
+        replace: true,
         link          : componentLinkFunction
     }
 }
@@ -25,7 +26,7 @@ function componentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('componentProperties', componentProperties);
+angular.module('app.components').directive('rgedmComponentProperties', componentProperties);
 
 function componentProperties() {
     return {

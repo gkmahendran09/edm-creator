@@ -18,11 +18,22 @@ use Auth, Session, Validator, Storage, Blade;
 class EDMController extends Controller
 {
 
-	protected function getRawHTML($edm, $responsive = true)
+	protected function getRawHTML($edm, $responsive = true, $relative_links = false)
 	{
 		$html = $edm->html_header;
 		$html .= $edm->css;
-		$html .= $edm->html;
+
+		// remove angular tags
+		$purehtml = $edm->html;
+		$purehtml = preg_replace("/(<rgedm.*?>)/", "", $purehtml);
+		$purehtml = preg_replace("/(<\/rgedm.*?>)/", "", $purehtml);
+
+		// replacing relative links
+		if($relative_links) {
+			$html .= preg_replace("/\/user\/edm\/front\-end\-asset\?path\=\/app\/edms\/(.*)\/images/", "images",$purehtml);
+		} else {
+			$html .= $purehtml;
+		}
 		$html .= $edm->html_footer;
 
 		return $html;
@@ -30,7 +41,7 @@ class EDMController extends Controller
 
 	protected function createZip($user_id, $edm)
 	{
-		$html = self::getRawHTML($edm, true);
+		$html = self::getRawHTML($edm, true, true);
 
 		$file_path = 'edms/'. $user_id . '-' . str_slug($edm->edm_name);
 		$file_name = '/index.html';
@@ -41,9 +52,11 @@ class EDMController extends Controller
 
 		$package_path = storage_path('app/'. $file_path . '/package.zip');
 		$package_file_path = storage_path('app/'. $file_path . '/index.html');
+		$images = glob(storage_path('app/'. $file_path) . '/images/*');
 
 		$zipper->make($package_path);
 		$zipper->add($package_file_path);
+		$zipper->folder('images')->add($images);
 
 		return $package_path;
 	}

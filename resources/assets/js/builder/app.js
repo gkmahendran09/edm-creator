@@ -27,9 +27,8 @@ function getTemplateURL(path) {
 
 // Get Banner Component Data
 function getBannerComponentData(id) {
-  return {
-    "status": "active",
-    "directiveName": "<banner-component id=\"" + id + "\" edm=\"edm\"></banner-component>",
+  return {    
+    "directiveName": "<rgedm-banner-component id=\"" + id + "\" edm=\"edm\"></rgedm-banner-component>",
     "properties": {
         "src": "images/header.jpg",
         "alt": "Making your world safer!",

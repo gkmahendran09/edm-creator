@@ -71,7 +71,7 @@ function edmController($scope, $compile) {
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
             delete $scope.edm.components[id];
-            $scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
+            $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
             alert("Component " + id + " Deleted");
           }
       };
@@ -133,9 +133,8 @@ function getTemplateURL(path) {
 
 // Get Banner Component Data
 function getBannerComponentData(id) {
-  return {
-    "status": "active",
-    "directiveName": "<banner-component id=\"" + id + "\" edm=\"edm\"></banner-component>",
+  return {    
+    "directiveName": "<rgedm-banner-component id=\"" + id + "\" edm=\"edm\"></rgedm-banner-component>",
     "properties": {
         "src": "images/header.jpg",
         "alt": "Making your world safer!",

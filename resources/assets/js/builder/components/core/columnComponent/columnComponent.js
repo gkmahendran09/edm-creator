@@ -1,4 +1,4 @@
-angular.module('app.components').directive('columnComponent', columnComponent);
+angular.module('app.components').directive('rgedmColumnComponent', columnComponent);
 
 function columnComponent($compile) {
     return {
@@ -24,7 +24,7 @@ function columnComponentLinkFunction(scope, elem, attrs) {
   //   console.log(scope.edm);
 
   elem.bind('click', function() {
-    scope.edm.showProperties('<column-component-properties parentid="' + scope.parentid +'" id="' + scope.id +'" edm="edm"></column-component-properties>');
+    scope.edm.showProperties('<rgedm-column-component-properties parentid="' + scope.parentid +'" id="' + scope.id +'" edm="edm"></rgedm-column-component-properties>');
     return false;
   });
 }
@@ -34,7 +34,7 @@ function columnComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('columnComponentProperties', columnComponentProperties);
+angular.module('app.components').directive('rgedmColumnComponentProperties', columnComponentProperties);
 
 function columnComponentProperties() {
     return {
