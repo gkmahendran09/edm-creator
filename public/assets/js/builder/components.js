@@ -1,25 +1,24 @@
 angular.module('app.components',[]);
 
-angular.module('app.components').directive('rgedmComponent', component);
+angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
 
-function component() {
+function bannerComponent() {
     return {
         scope: {
-          c: '=',
+          id: '=',
           edm: '='
         },
         replace: true,
-        link          : componentLinkFunction
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
+        link          : bannerComponentLinkFunction
     }
 }
 
-function componentLinkFunction(scope, elem, attrs) {
-  var directiveName = scope.c.directiveName;
-  var html = scope.edm.doCompile(scope, directiveName);
-  elem.append(html);
+function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
-    // return false;
+    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
   });
 }
 
@@ -28,11 +27,15 @@ function componentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('rgedmComponentProperties', componentProperties);
+angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
 
-function componentProperties() {
+function bannerComponentProperties() {
     return {
-        templateUrl   : getTemplateURL("/components/core/component/componentProperties.html"),
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
     }
 }
 
@@ -91,12 +94,48 @@ function columnComponentPropertiesLinkFunction($scope, elem, attrs) {
     });
 }
 
+angular.module('app.components').directive('rgedmComponent', component);
+
+function component() {
+    return {
+        scope: {
+          c: '=',
+          edm: '='
+        },
+        replace: true,
+        link          : componentLinkFunction
+    }
+}
+
+function componentLinkFunction(scope, elem, attrs) {
+  var directiveName = scope.c.directiveName;
+  var html = scope.edm.doCompile(scope, directiveName);
+  elem.append(html);
+  elem.bind('click', function() {
+    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
+    // return false;
+  });
+}
+
+//--------------------------------
+//=> Component Properties
+//--------------------------------
+
+
+angular.module('app.components').directive('rgedmComponentProperties', componentProperties);
+
+function componentProperties() {
+    return {
+        templateUrl   : getTemplateURL("/components/core/component/componentProperties.html"),
+    }
+}
+
 angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
 
 function edmComponent() {
     return {
         scope : {
-          edm: '='
+          edm: '='          
         },
         transclude    : true,
         replace       : true,
@@ -122,45 +161,6 @@ angular.module('app.components').directive('rgedmEdmComponentProperties', edmCom
 function edmComponentProperties() {
     return {
         templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponentProperties.html"),
-    }
-}
-
-angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
-
-function bannerComponent() {
-    return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        replace: true,
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
-        link          : bannerComponentLinkFunction
-    }
-}
-
-function bannerComponentLinkFunction(scope, elem, attrs) {
-  elem.bind('click', function() {
-    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
-    scope.edm.showProperties(propertiesTemplate);
-    return false;
-  });
-}
-
-//--------------------------------
-//=> Component Properties
-//--------------------------------
-
-
-angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
-
-function bannerComponentProperties() {
-    return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
     }
 }
 

@@ -28,16 +28,23 @@ function edmController($scope, $compile) {
 
 
     //--------------------------------------------------------------------------
+    //=> Helpers
+    //--------------------------------------------------------------------------
+
+
+    //--------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------
     //=> Core Functionality
     //--------------------------------------------------------------------------
 
       // Add a Component
       $scope.edm.addComponent = function(template) {
         if(template=='banner') {
-          var totalComponents = $scope.edm.totalComponents;
-          var newComponent = getBannerComponentData(totalComponents);
-          $scope.edm.components[totalComponents] = newComponent;
-          $scope.edm.totalComponents++;
+          var lastComponentId = $scope.edm.lastComponentId;
+          var newComponent = getBannerComponentData(lastComponentId);
+          $scope.edm.components[lastComponentId] = newComponent;
+          $scope.edm.lastComponentId++;
         } else {
           alert("ToDo");
         }
@@ -47,33 +54,40 @@ function edmController($scope, $compile) {
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
             delete $scope.edm.components[id];
+            $scope.edm.totalComponents--;
             $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
             alert("Component " + id + " Deleted");
           }
       };
 
-      // Add Row - Bottom
-      $scope.edm.addRowBottom = function() {
-        var newRowId = $scope.edm.rows.length;
-        var newRow = getRowData(newRowId);
+      // Move Up a Component
+      $scope.edm.moveUp = function(orderId) {
+        var currentOrderId  = orderId;
+        var prevOrderId     = orderId - 1;
 
-        $scope.edm.rows.push(newRow);
+        angular.forEach($scope.edm.components, function(component) {
+          if(component.order == currentOrderId) {
+              component.order = prevOrderId;
+          }
+          else if(component.order == prevOrderId) {
+            component.order = currentOrderId;
+          }
+        });
       };
 
-      // Add Column - End
-      $scope.edm.addColumnEnd = function(parentid) {
-        var newColumnId = $scope.edm.rows[parentid].columns.length;
-        var newColumn = getColumnData(parentid, newColumnId);
+      // Move Down a Component
+      $scope.edm.moveDown = function(orderId) {
+          var currentOrderId  = orderId;
+          var nextOrderId     = orderId + 1;
 
-        $scope.edm.rows[parentid].columns.push(newColumn);
-      };
-
-      // Add Banner Image
-      $scope.edm.addBannerImage = function(parentid, id) {
-        var content = $scope.edm.rows[parentid].columns[id].content;
-        var newContent = '<img src="images/rage.png">' + content;
-
-        $scope.edm.rows[parentid].columns[id].content = newContent;
+          angular.forEach($scope.edm.components, function(component) {
+            if(component.order == currentOrderId) {
+                component.order = nextOrderId;
+            }
+            else if(component.order == nextOrderId) {
+              component.order = currentOrderId;
+            }
+          });
       };
 
     //--------------------------------------------------------------------------

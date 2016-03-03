@@ -42,6 +42,13 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
+        <div class="form-group" data-ng-if="edm.components[id].order != 0">
+          <a class="btn btn-primary btn-block" href="javascript:void(0);" data-ng-click="edm.moveUp(edm.components[id].order);"><span class="glyphicon glyphicon-arrow-up"></span> Move Up</a>
+        </div>
+        <div class="form-group" data-ng-if="edm.components[id].order != (edm.totalComponents - 1)">
+          <a class="btn btn-primary btn-block" href="javascript:void(0);" data-ng-click="edm.moveDown(edm.components[id].order);"><span class="glyphicon glyphicon-arrow-down"></span> Move Down</a>
+        </div>
+        <hr>
         <div class="form-group">
           <a class="btn btn-danger btn-block" href="javascript:void(0);" data-ng-click="edm.deleteComponent(id);"><span class="glyphicon glyphicon-trash"></span> Delete</a>
         </div>

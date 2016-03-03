@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       @if(Request::segment(4) == 'edit')
         <ul class="nav navbar-nav">
-          <li><a href="javascript:void(0);">
+          {{-- <li><a href="javascript:void(0);">
             <form method="post" action="{{route('user.edm.update', ['id' => $edm->id])}}" accept-charset="UTF-8" class="yForm form-horizontal" onsubmit="return getCurrentScopeValues();">
               {{ method_field('PUT') }}
 
@@ -46,7 +46,7 @@
                 <span class="glyphicon glyphicon-link"></span> Preview Link
               </button>
             </a>
-          </li>
+          </li> --}}
         </ul>
       @endif
       {{-- <ul class="nav navbar-nav">

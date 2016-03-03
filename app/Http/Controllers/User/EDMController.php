@@ -28,7 +28,7 @@ class EDMController extends Controller
 		$purehtml = preg_replace("/(<rgedm.*?>)/", "", $purehtml);
 		$purehtml = preg_replace("/(<\/rgedm.*?>)/", "", $purehtml);
 
-		// replacing relative links
+		// relative links
 		if($relative_links) {
 			$html .= preg_replace("/\/user\/edm\/front\-end\-asset\?path\=\/app\/edms\/(.*)\/images/", "images",$purehtml);
 		} else {

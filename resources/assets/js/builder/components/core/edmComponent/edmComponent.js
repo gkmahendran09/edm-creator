@@ -3,7 +3,7 @@ angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
 function edmComponent() {
     return {
         scope : {
-          edm: '='
+          edm: '='          
         },
         transclude    : true,
         replace       : true,

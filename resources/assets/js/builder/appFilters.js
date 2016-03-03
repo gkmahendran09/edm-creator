@@ -4,6 +4,8 @@ angular.module('app.filters').filter('assetURL', assetURLFilter);
 
 angular.module('app.filters').filter('basename', basenameFilter);
 
+angular.module('app.filters').filter('orderObjectBy', orderObjectByFilter);
+
 function trustAsHTMLFilter($sce) {
   return $sce.trustAsHtml;
 }
@@ -20,4 +22,18 @@ function basenameFilter() {
       var val = valArr[(valArr.length) - 1];
       return val;
   }
+}
+
+function orderObjectByFilter() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    filtered.sort(function (a, b) {
+      return (a[field] > b[field] ? 1 : -1);
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
 }
