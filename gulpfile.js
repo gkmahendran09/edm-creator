@@ -32,7 +32,8 @@ elixir(function(mix) {
 
     mix.scripts([jqueryPath, jqueryMigratePath, bootstrapPath,
       'plugins/angular.min.js',
-      'plugins/angular-route.js',      
+      'plugins/angular-route.js',
+      'plugins/angular-hotkeys.js',      
       'plugins/angular-sanitize.min.js'],
           'public/assets/js/builder/plugins.js');
 

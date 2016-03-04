@@ -18,10 +18,16 @@ use Auth, Session, Validator, Storage, Blade;
 class EDMController extends Controller
 {
 
-	protected function getRawHTML($edm, $responsive = true, $relative_links = false)
+	protected function getRawHTML($edm, $relative_links = false)
 	{
+		$scope_values = json_decode($edm->scope_values);
+
 		$html = $edm->html_header;
-		$html .= $edm->css;
+		$html .= '<title>' . $scope_values->properties->pageTitle . '</title>';
+		if($scope_values->properties->isResponsive) {
+			$html .= $edm->css;
+		}
+		$html .= '</head><body style="background-color:' . $scope_values->properties->pageBackground . '; position:relative">';
 
 		// remove angular tags
 		$purehtml = $edm->html;
@@ -41,7 +47,7 @@ class EDMController extends Controller
 
 	protected function createZip($user_id, $edm)
 	{
-		$html = self::getRawHTML($edm, true, true);
+		$html = self::getRawHTML($edm, true); // edm object, relative links?
 
 		$file_path = 'edms/'. $user_id . '-' . str_slug($edm->edm_name);
 		$file_name = '/index.html';
@@ -52,7 +58,7 @@ class EDMController extends Controller
 
 		$package_path = storage_path('app/'. $file_path . '/package.zip');
 		$package_file_path = storage_path('app/'. $file_path . '/index.html');
-		$images = glob(storage_path('app/'. $file_path) . '/images/*');
+		$images = glob(storage_path('app/'. $file_path) . '/images/*'); // TODO: Instead - we need to compare "imageAssets" array
 
 		$zipper->make($package_path);
 		$zipper->add($package_file_path);
@@ -209,7 +215,7 @@ class EDMController extends Controller
 	{
 		$edm = EDM::where('user_id',Auth::user()->id)->findOrFail($id);
 
-		$html = self::getRawHTML($edm, true);
+		$html = self::getRawHTML($edm, false); // edm object, relative links?
 
 		return response($html, 200)->header('Content-Type', 'text/html');
 	}

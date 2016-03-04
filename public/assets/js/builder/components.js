@@ -16,6 +16,8 @@ function bannerComponent() {
 
 function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
     var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
     scope.edm.showProperties(propertiesTemplate);
     return false;
@@ -37,61 +39,6 @@ function bannerComponentProperties() {
         },
         templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
     }
-}
-
-angular.module('app.components').directive('rgedmColumnComponent', columnComponent);
-
-function columnComponent($compile) {
-    return {
-        scope : {
-          edm: '=',
-          id: '=',
-          parentid: '='
-        },
-        transclude    : true,
-        replace       : true,
-        templateUrl   : getTemplateURL("/components/core/columnComponent/columnComponent.html"),
-        link          : columnComponentLinkFunction
-    }
-}
-
-function columnComponentLinkFunction(scope, elem, attrs) {
-  // var template = "<row-component data-ng-repeat='rows in edm.rows' edm='edm' id='rows.id'>"
-  //   + "<column-component data-ng-repeat='c in rows.columns' edm='edm' id='c.id' parentid='rows.id'>"
-  //   + "</column-component>"
-  //   + "</row-component>";
-  //
-  //   console.log($compile(template)(scope));
-  //   console.log(scope.edm);
-
-  elem.bind('click', function() {
-    scope.edm.showProperties('<rgedm-column-component-properties parentid="' + scope.parentid +'" id="' + scope.id +'" edm="edm"></rgedm-column-component-properties>');
-    return false;
-  });
-}
-
-//--------------------------------
-//=> Component Properties
-//--------------------------------
-
-
-angular.module('app.components').directive('rgedmColumnComponentProperties', columnComponentProperties);
-
-function columnComponentProperties() {
-    return {
-        scope : {
-          edm: '=',
-          id: '=',
-          parentid: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/columnComponent/columnComponentProperties.html"),
-        link          : columnComponentPropertiesLinkFunction
-    }
-}
-
-function columnComponentPropertiesLinkFunction($scope, elem, attrs) {
-    elem.bind('click', function() {
-    });
 }
 
 angular.module('app.components').directive('rgedmComponent', component);
@@ -130,6 +77,47 @@ function componentProperties() {
     }
 }
 
+angular.module('app.components').directive('rgedmTextComponent', textComponent);
+
+function textComponent() {
+    return {
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        replace: true,
+        templateUrl   : getTemplateURL("/components/core/textComponent/textComponent.html"),
+        link          : textComponentLinkFunction
+    }
+}
+
+function textComponentLinkFunction(scope, elem, attrs) {
+  elem.bind('click', function() {
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
+    var propertiesTemplate = '<rgedm-text-component-properties edm="edm" id="' + attrs.id + '"></rgedm-text-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
+  });
+}
+
+//--------------------------------
+//=> Component Properties
+//--------------------------------
+
+
+angular.module('app.components').directive('rgedmTextComponentProperties', textComponentProperties);
+
+function textComponentProperties() {
+    return {
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/textComponent/textComponentProperties.html"),
+    }
+}
+
 angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
 
 function edmComponent() {
@@ -162,27 +150,6 @@ function edmComponentProperties() {
     return {
         templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponentProperties.html"),
     }
-}
-
-angular.module('app.components').directive('rgedmRowComponent', rowComponent);
-
-function rowComponent() {
-    return {
-        scope : {
-          edm: '=',
-          id: '='
-        },
-        transclude    : true,
-        replace       : true,
-        templateUrl   : getTemplateURL("/components/core/rowComponent/rowComponent.html"),
-        link          : rowComponentLinkFunction
-    }
-}
-
-function rowComponentLinkFunction(scope, elem, attrs) {
-    elem.bind('click', function() {
-
-    });
 }
 
 //# sourceMappingURL=components.js.map

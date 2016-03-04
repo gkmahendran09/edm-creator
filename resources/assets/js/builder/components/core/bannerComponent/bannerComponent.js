@@ -14,6 +14,8 @@ function bannerComponent() {
 
 function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
     var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
     scope.edm.showProperties(propertiesTemplate);
     return false;

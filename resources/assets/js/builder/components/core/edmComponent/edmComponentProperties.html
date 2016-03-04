@@ -1,5 +1,3 @@
-
-
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
@@ -12,32 +10,44 @@
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="form-group">
+          <label>Is this <b>responsive</b> EDM?</label>
+          <input type="checkbox" data-ng-model="edm.properties.isResponsive">
+        </div>
+        <div class="form-group">
+          <label>EDM Page Title</label>
+          <input type="text" class="form-control" required data-ng-model="edm.properties.pageTitle">
+        </div>
+        <div class="form-group">
+          <label>EDM Page Background</label>
+          <input type="text" class="form-control" colorpicker required data-ng-model="edm.properties.pageBackground">
+        </div>
+        <div class="form-group">
           <label>EDM Width</label>
-          <input type="text" class="form-control" required data-ng-model="edm.properties.width" value="{{edm.properties.width}}">
+          <input type="text" class="form-control" required data-ng-model="edm.properties.width">
         </div>
         <div class="form-group">
           <label>EDM Height</label>
-          <input type="text" class="form-control" required data-ng-model="edm.properties.height" value="{{edm.properties.height}}">
+          <input type="text" class="form-control" required data-ng-model="edm.properties.height">
         </div>
         <div class="form-group">
           <label>EDM Border Color</label>
-          <input colorpicker type="text" class="form-control" required data-ng-model="edm.properties.borderColor" value="{{edm.properties.borderColor}}">
+          <input colorpicker type="text" class="form-control" required data-ng-model="edm.properties.borderColor">
         </div>
         <div class="form-group">
           <label>EDM Padding Top(px)</label>
-          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingTop" value="{{edm.properties.paddingTop}}">
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingTop">
         </div>
         <div class="form-group">
           <label>EDM Padding Right(px)</label>
-          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingRight" value="{{edm.properties.paddingRight}}">
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingRight">
         </div>
         <div class="form-group">
           <label>EDM Padding Bottom(px)</label>
-          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingBottom" value="{{edm.properties.paddingBottom}}">
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingBottom">
         </div>
         <div class="form-group">
           <label>EDM Padding Left(px)</label>
-          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingLeft" value="{{edm.properties.paddingLeft}}">
+          <input type="number" class="form-control" required data-ng-model="edm.properties.paddingLeft">
         </div>
       </div>
     </div>

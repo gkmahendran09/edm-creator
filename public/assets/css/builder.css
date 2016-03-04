@@ -11039,13 +11039,22 @@ button.close {
   border-collapse: separate;
 }
 
-#edm-document {
-  border: 1px solid #999;
+#edm-document.edm-component {
+  border: 2px dashed #f00;
+}
+
+.edm-component {
+  border: 2px dashed #fff;
 }
 
 #edm-document:hover,
+.edm-component:hover {
+  border: 2px dashed #f00;
+}
+
+.edm-component.active,
 #edm-document.active {
-  border: 1px dashed #f00;
+  border: 2px dashed #1800ff;
 }
 
 .floating-section {
@@ -11061,4 +11070,37 @@ button.close {
 
 #edm-components {
   left: 0;
+  z-index: 1001;
+}
+
+/*-------------------
+ => Layout Changes
+ ---------------------*/
+
+html,
+body {
+  height: 100%;
+}
+
+#edit-edm {
+  height: 100%;
+}
+
+#edit-edm .navbar {
+  position: fixed;
+  width: 100%;
+}
+
+#edm-workspace {
+  padding-top: 70px;
+}
+
+#edm-builder #edm-document {
+  max-height: 550px;
+  overflow: auto;
+}
+
+#edm-properties .panel-body {
+  max-height: 600px;
+  overflow: auto;
 }

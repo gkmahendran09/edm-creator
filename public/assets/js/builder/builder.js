@@ -45,9 +45,20 @@ function edmController($scope, $compile) {
     // EDM Data
     $scope.edm = getScopeValues();
 
+    $scope.edm.componentDefaultsURL           = getTemplateURL('/common/componentDefaults.html');
+
+    $scope.edm.componentFontFamilyOptionsURL  = getTemplateURL('/common/componentFontFamilyOptions.html');
+
     //--------------------------------------------------------------------------
     //=> Common
     //--------------------------------------------------------------------------
+
+
+      // Save the EDM
+      $scope.edm.save = function() {
+        $("#edm_save_form").submit();
+        return false;
+      };
 
       // Do Template Compilation
       $scope.edm.doCompile = function(scope, template) {
@@ -80,14 +91,24 @@ function edmController($scope, $compile) {
 
       // Add a Component
       $scope.edm.addComponent = function(template) {
-        if(template=='banner') {
+
+        if(template == 'banner' || template == 'text') {
           var lastComponentId = $scope.edm.lastComponentId;
-          var newComponent = getBannerComponentData(lastComponentId);
-          $scope.edm.components[lastComponentId] = newComponent;
-          $scope.edm.lastComponentId++;
-        } else {
+
+          var newComponent = getComponentData(template, lastComponentId, $scope.edm.totalComponents);
+          if(newComponent != "") {
+            $scope.edm.components[lastComponentId] = newComponent;
+
+            $scope.edm.totalComponents++;
+            $scope.edm.lastComponentId++;
+          } else {
+            alert("Invalid Component");
+          }
+        }
+        else {
           alert("ToDo");
         }
+
       };
 
       // Delete a Component
@@ -95,6 +116,17 @@ function edmController($scope, $compile) {
           if(confirm("Are you sure to delete this component?")) {
             delete $scope.edm.components[id];
             $scope.edm.totalComponents--;
+
+            if($scope.edm.totalComponents < 0) {
+              $scope.edm.totalComponents = 0;
+            }
+
+            angular.forEach($scope.edm.components, function(component) {
+              if(component.order != 0) {
+                component.order = component.order - 1;
+              }
+            });
+
             $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
             alert("Component " + id + " Deleted");
           }
@@ -134,7 +166,11 @@ function edmController($scope, $compile) {
 
 }
 
-angular.module('edmApp', [ 'app.filters', 'app.controllers', 'app.components', 'colorpicker.module' ]);
+angular.module('edmApp', [ 'app.filters', 'app.controllers', 'app.components', 'colorpicker.module', 'cfp.hotkeys' ]);
+
+//--------------------------------------------------------------------------
+//=> App:: jQuery
+//--------------------------------------------------------------------------
 
 $(window).ready(function() {
   $("#edm-document").trigger("click");
@@ -144,11 +180,37 @@ $(document).ready(function() {
       $(".edm-component").removeClass("active");
       $(this).addClass("active");
   });
+
+  // var windowHeight = $(window).outerHeight();
+  //
+  // $(window).resize(function() {
+  //   if(windowHeight != $(window).outerHeight()) {
+  //       windowHeight = $(window).outerHeight();
+  //       $("#edm-builder #edm-document").height(windowHeight-180);
+  //       $("#edm-properties .panel-body").height(windowHeight-150);
+  //   }
+  // });
 });
+
+//--------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------
-//=> Reusable Functions
+//=> App:: Functions
+//--------------------------------------------------------------------------
+
+function getCurrentScopeValues() {
+	var html = $("#edm-document").html();
+	var scope_values = angular.toJson($('#edit-edm').scope().edm);
+	$("#form_html").val(html);
+	$("#form_scope_values").val(scope_values);
+	return true;
+}
+
+//--------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------
+//=> EDM:: Functions
 //--------------------------------------------------------------------------
 
 // Get Asset URL
@@ -162,38 +224,47 @@ function getTemplateURL(path) {
 }
 
 // Get Banner Component Data
-function getBannerComponentData(id) {
-  return {    
-    "directiveName": "<rgedm-banner-component id=\"" + id + "\" edm=\"edm\"></rgedm-banner-component>",
-    "properties": {
-        "src": "images/header.jpg",
-        "alt": "Making your world safer!",
-        "title": "Making your world safer!"
-      }
-  };
+function getComponentData(componentName, id, orderId) {
+  var data = '';
+  switch(componentName) {
+    case 'banner':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-banner-component id=\"" + id + "\" edm=\"edm\"></rgedm-banner-component>",
+        "properties": {
+            "haveLink": false,
+            "linkURL": "",
+            "src": "images/header.jpg",
+            "alt": "Making your world safer!",
+            "title": "Making your world safer!",
+            "paddingTop": 0,
+            "paddingBottom": 0
+          }
+      };
+      break;
+    case 'text':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-text-component id=\"" + id + "\" edm=\"edm\"></rgedm-text-component>",
+        "properties": {
+            "fontFamily": "Arial",
+            "fontColor": "#000000",
+            "fontSize": 12,
+            "backgroundColor": "#ffffff",
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "content":"New Text Component"
+          }
+      };
+      break;
+  }
+
+  return data;
+
 }
 
-// Get Row Data
-function getRowData(RowId) {
-  return {
-    "id": RowId,
-    "columns": [
-      {
-        "id":0,
-        "backgroundColor": "#bc1",
-        "content": "Row " + RowId + " Column 1"
-      }
-    ]
-  };
-}
-
-// Get Column Data
-function getColumnData(RowId, ColumnId) {
-  return {
-    "id": ColumnId,
-    "backgroundColor": "#bc1",
-    "content": "Row " + RowId + " Column " + ColumnId
-  };
-}
+//--------------------------------------------------------------------------
 
 //# sourceMappingURL=builder.js.map

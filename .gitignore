@@ -5,3 +5,4 @@ Homestead.json
 .env
 Envoy.blade.php
 /public/build
+/public/apps

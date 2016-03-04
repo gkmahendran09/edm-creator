@@ -1,7 +1,17 @@
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-  <tr>
-    <td class="header-content" valign="top">
-      <img alt="{{edm.components[id].properties.alt}}" title="{{edm.components[id].properties.title}}" src="{{edm.components[id].properties.src}}" />
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="edm-component">
+
+  <tr data-ng-if="!edm.components[id].properties.haveLink">
+    <td class="header-content" valign="top" style="padding-top:{{edm.components[id].properties.paddingTop}}px;padding-bottom:{{edm.components[id].properties.paddingBottom}}px;">
+      <img alt="{{edm.components[id].properties.alt}}" title="{{edm.components[id].properties.title}}" src="{{edm.components[id].properties.src}}" style="border:0;display:block;" />
     </td>
   </tr>
+
+  <tr data-ng-if="edm.components[id].properties.haveLink">
+    <td class="header-content" valign="top" style="padding-top:{{edm.components[id].properties.paddingTop}}px;padding-bottom:{{edm.components[id].properties.paddingBottom}}px;">
+      <a href="{{edm.components[id].properties.linkURL}}" target="_blank" title="{{edm.components[id].properties.title}}">
+        <img alt="{{edm.components[id].properties.alt}}" src="{{edm.components[id].properties.src}}" style="border:0;display:block;" />
+      </a>
+    </td>
+  </tr>
+
 </table>

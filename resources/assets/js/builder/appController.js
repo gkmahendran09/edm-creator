@@ -5,9 +5,20 @@ function edmController($scope, $compile) {
     // EDM Data
     $scope.edm = getScopeValues();
 
+    $scope.edm.componentDefaultsURL           = getTemplateURL('/common/componentDefaults.html');
+
+    $scope.edm.componentFontFamilyOptionsURL  = getTemplateURL('/common/componentFontFamilyOptions.html');
+
     //--------------------------------------------------------------------------
     //=> Common
     //--------------------------------------------------------------------------
+
+
+      // Save the EDM
+      $scope.edm.save = function() {
+        $("#edm_save_form").submit();
+        return false;
+      };
 
       // Do Template Compilation
       $scope.edm.doCompile = function(scope, template) {
@@ -40,14 +51,24 @@ function edmController($scope, $compile) {
 
       // Add a Component
       $scope.edm.addComponent = function(template) {
-        if(template=='banner') {
+
+        if(template == 'banner' || template == 'text') {
           var lastComponentId = $scope.edm.lastComponentId;
-          var newComponent = getBannerComponentData(lastComponentId);
-          $scope.edm.components[lastComponentId] = newComponent;
-          $scope.edm.lastComponentId++;
-        } else {
+
+          var newComponent = getComponentData(template, lastComponentId, $scope.edm.totalComponents);
+          if(newComponent != "") {
+            $scope.edm.components[lastComponentId] = newComponent;
+
+            $scope.edm.totalComponents++;
+            $scope.edm.lastComponentId++;
+          } else {
+            alert("Invalid Component");
+          }
+        }
+        else {
           alert("ToDo");
         }
+
       };
 
       // Delete a Component
@@ -55,6 +76,17 @@ function edmController($scope, $compile) {
           if(confirm("Are you sure to delete this component?")) {
             delete $scope.edm.components[id];
             $scope.edm.totalComponents--;
+
+            if($scope.edm.totalComponents < 0) {
+              $scope.edm.totalComponents = 0;
+            }
+
+            angular.forEach($scope.edm.components, function(component) {
+              if(component.order != 0) {
+                component.order = component.order - 1;
+              }
+            });
+
             $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
             alert("Component " + id + " Deleted");
           }

@@ -14,20 +14,28 @@ $fa-font-path:"/fonts";
   color: red;
 }
 
-$edm-border-color: #999;
-$edm-hover-border-color: #f00;
+
+$edm-component-active-color: #1800ff;
+$edm-component-border-width: 2px;
 
 // EDIT EDM Container
 #edit-edm table {
   border-collapse: separate;
 }
 
-#edm-document {
-  border: 1px solid $edm-border-color;
+#edm-document.edm-component {
+  border: $edm-component-border-width dashed #f00;
+}
+.edm-component {
+  border: $edm-component-border-width dashed #fff;
 }
 
-#edm-document:hover, #edm-document.active {
-  border: 1px dashed $edm-hover-border-color;
+#edm-document:hover, .edm-component:hover {
+  border: $edm-component-border-width dashed #f00;
+}
+
+.edm-component.active, #edm-document.active {
+  border: $edm-component-border-width dashed $edm-component-active-color;
 }
 
  .floating-section {
@@ -41,4 +49,32 @@ $edm-hover-border-color: #f00;
  }
  #edm-components {
    left: 0;
+   z-index: 1001;
  }
+
+ /*-------------------
+ => Layout Changes
+ ---------------------*/
+html, body {
+  height: 100%;
+}
+#edit-edm {
+  height: 100%;
+
+}
+#edit-edm .navbar {
+  position: fixed;
+  width: 100%;
+}
+#edm-workspace {
+  padding-top: 70px;
+}
+#edm-builder #edm-document {
+  max-height: 550px;
+  overflow: auto;
+}
+#edm-properties .panel-body {
+  max-height: 600px;
+  overflow: auto;
+}
+ //---------------------
