@@ -23,6 +23,7 @@
 								<div class="list-group">
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('banner');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Banner</a>
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Text</a>
+									<a href="javascript:void(0);" data-ng-click="edm.addComponent('rich-text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Rich Text</a>
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('header');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Header</a>
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('header_para');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Header + Para</a>
 								</div>

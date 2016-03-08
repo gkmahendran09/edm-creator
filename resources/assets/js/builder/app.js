@@ -1,4 +1,4 @@
-angular.module('edmApp', [ 'app.filters', 'app.controllers', 'app.components', 'colorpicker.module', 'cfp.hotkeys' ]);
+angular.module('edmApp', [ 'app.filters', 'app.controllers', 'app.components', 'colorpicker.module', 'cfp.hotkeys', 'rgEdmRichTextEditor.module' ]);
 
 //--------------------------------------------------------------------------
 //=> App:: jQuery
@@ -88,6 +88,23 @@ function getComponentData(componentName, id, orderId) {
             "paddingLeft": 0,
             "paddingRight": 0,
             "content":"New Text Component"
+          }
+      };
+      break;
+    case 'rich-text':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-rich-text-component id=\"" + id + "\" edm=\"edm\"></rgedm-rich-text-component>",
+        "properties": {
+            "fontFamily": "Arial",
+            "fontColor": "#000000",
+            "fontSize": 12,
+            "backgroundColor": "#ffffff",
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "content":"New Rich Text Component"
           }
       };
       break;

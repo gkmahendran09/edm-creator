@@ -52,7 +52,7 @@ function edmController($scope, $compile) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text') {
+        if(template == 'banner' || template == 'text' || template == 'rich-text') {
           var lastComponentId = $scope.edm.lastComponentId;
 
           var newComponent = getComponentData(template, lastComponentId, $scope.edm.totalComponents);
@@ -74,7 +74,9 @@ function edmController($scope, $compile) {
       // Delete a Component
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
+            var currentOrderId = $scope.edm.components[id].order;
             delete $scope.edm.components[id];
+
             $scope.edm.totalComponents--;
 
             if($scope.edm.totalComponents < 0) {
@@ -82,7 +84,7 @@ function edmController($scope, $compile) {
             }
 
             angular.forEach($scope.edm.components, function(component) {
-              if(component.order != 0) {
+              if(component.order > currentOrderId) {
                 component.order = component.order - 1;
               }
             });

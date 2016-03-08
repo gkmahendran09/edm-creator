@@ -92,7 +92,7 @@ function edmController($scope, $compile) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text') {
+        if(template == 'banner' || template == 'text' || template == 'rich-text') {
           var lastComponentId = $scope.edm.lastComponentId;
 
           var newComponent = getComponentData(template, lastComponentId, $scope.edm.totalComponents);
@@ -114,7 +114,9 @@ function edmController($scope, $compile) {
       // Delete a Component
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
+            var currentOrderId = $scope.edm.components[id].order;
             delete $scope.edm.components[id];
+
             $scope.edm.totalComponents--;
 
             if($scope.edm.totalComponents < 0) {
@@ -122,7 +124,7 @@ function edmController($scope, $compile) {
             }
 
             angular.forEach($scope.edm.components, function(component) {
-              if(component.order != 0) {
+              if(component.order > currentOrderId) {
                 component.order = component.order - 1;
               }
             });
@@ -166,7 +168,7 @@ function edmController($scope, $compile) {
 
 }
 
-angular.module('edmApp', [ 'app.filters', 'app.controllers', 'app.components', 'colorpicker.module', 'cfp.hotkeys' ]);
+angular.module('edmApp', [ 'app.filters', 'app.controllers', 'app.components', 'colorpicker.module', 'cfp.hotkeys', 'rgEdmRichTextEditor.module' ]);
 
 //--------------------------------------------------------------------------
 //=> App:: jQuery
@@ -256,6 +258,23 @@ function getComponentData(componentName, id, orderId) {
             "paddingLeft": 0,
             "paddingRight": 0,
             "content":"New Text Component"
+          }
+      };
+      break;
+    case 'rich-text':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-rich-text-component id=\"" + id + "\" edm=\"edm\"></rgedm-rich-text-component>",
+        "properties": {
+            "fontFamily": "Arial",
+            "fontColor": "#000000",
+            "fontSize": 12,
+            "backgroundColor": "#ffffff",
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "content":"New Rich Text Component"
           }
       };
       break;
