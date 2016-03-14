@@ -53,8 +53,16 @@ $edm-component-border-width: 2px;
    right: 0;
  }
  #edm-components {
-   left: 0;
+   left: -270px;
    z-index: 1001;
+   transition: left 0.5s;
+   width: 270px;
+   background: #eaeaea;
+   border: 1px solid #ddd;
+ }
+
+ #edm-components.active {
+   left: 0;
  }
 
  /*-------------------

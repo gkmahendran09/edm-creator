@@ -29,10 +29,14 @@ class EDMController extends Controller
 		}
 		$html .= '</head><body style="background-color:' . $scope_values->properties->pageBackground . '; position:relative">';
 
-		// remove angular tags
 		$purehtml = $edm->html;
+
+		// remove angular tags
 		$purehtml = preg_replace("/(<rgedm.*?>)/", "", $purehtml);
 		$purehtml = preg_replace("/(<\/rgedm.*?>)/", "", $purehtml);
+
+		// remove angular/html comments
+		$purehtml = preg_replace("/(<!--.*-->)/", "", $purehtml);
 
 		// relative links
 		if($relative_links) {

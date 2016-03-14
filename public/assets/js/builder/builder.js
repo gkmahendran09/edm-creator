@@ -40,14 +40,34 @@ function orderObjectByFilter() {
 
 angular.module('app.controllers', []).controller('edmController', edmController);
 
-function edmController($scope, $compile) {
+function edmController($scope, $compile, $window) {
 
     // EDM Data
     $scope.edm = getScopeValues();
 
+    $scope.edm.changed = false;
+
+    $scope.edm.assetManagerURL                = getAssetManagerURL();
+
+    $scope.edm.previewURL                     = getPreviewURL();
+
     $scope.edm.componentDefaultsURL           = getTemplateURL('/common/componentDefaults.html');
 
     $scope.edm.componentFontFamilyOptionsURL  = getTemplateURL('/common/componentFontFamilyOptions.html');
+
+    //--------------------------------------------------------------------------
+    //=> Custom Watches
+    //--------------------------------------------------------------------------
+
+    var edmStatusWatcher = $scope.$watch('edm', function(oldVal, newVal) {
+                          if(oldVal != newVal) {
+                            $scope.edm.changed = true;
+                            edmStatusWatcher(); // De-register `this` watcher
+                          }
+                        }, true);
+
+    //--------------------------------------------------------------------------
+
 
     //--------------------------------------------------------------------------
     //=> Common
@@ -92,16 +112,18 @@ function edmController($scope, $compile) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text' || template == 'rich-text') {
+        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet') {
+          $scope.edm.lastComponentId++;
           var lastComponentId = $scope.edm.lastComponentId;
+          var totalComponents = $scope.edm.totalComponents;
 
-          var newComponent = getComponentData(template, lastComponentId, $scope.edm.totalComponents);
+          var newComponent = getComponentData(template, lastComponentId, totalComponents);
           if(newComponent != "") {
             $scope.edm.components[lastComponentId] = newComponent;
 
             $scope.edm.totalComponents++;
-            $scope.edm.lastComponentId++;
           } else {
+            $scope.edm.lastComponentId--;
             alert("Invalid Component");
           }
         }
@@ -183,6 +205,10 @@ $(document).ready(function() {
       $(this).addClass("active");
   });
 
+  $("body").on("click", ".toolbox-toggler", function() {
+      $("#edm-components").toggleClass("active");
+  });
+
   // var windowHeight = $(window).outerHeight();
   //
   // $(window).resize(function() {
@@ -249,6 +275,9 @@ function getComponentData(componentName, id, orderId) {
         "order": orderId,
         "directiveName": "<rgedm-text-component id=\"" + id + "\" edm=\"edm\"></rgedm-text-component>",
         "properties": {
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textDecoration": "none",
             "fontFamily": "Arial",
             "fontColor": "#000000",
             "fontSize": 12,
@@ -257,7 +286,20 @@ function getComponentData(componentName, id, orderId) {
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
-            "content":"New Text Component"
+            "borderTopStyle": 'solid',
+            "borderBottomStyle": 'solid',
+            "borderLeftStyle": 'solid',
+            "borderRightStyle": 'solid',
+            "borderTopColor": 'none',
+            "borderBottomColor": 'none',
+            "borderLeftColor": 'none',
+            "borderRightColor": 'none',
+            "borderTopWidth": 0,
+            "borderBottomWidth": 0,
+            "borderLeftWidth": 0,
+            "borderRightWidth": 0,
+            "content":"New Text Component",
+            "textAlign": "left"
           }
       };
       break;
@@ -275,6 +317,27 @@ function getComponentData(componentName, id, orderId) {
             "paddingLeft": 0,
             "paddingRight": 0,
             "content":"New Rich Text Component"
+          }
+      };
+      break;
+    case 'image-bullet':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-image-bullet-component id=\"" + id + "\" edm=\"edm\"></rgedm-image-bullet-component>",
+        "properties": {
+            "fontFamily": "Arial",
+            "fontColor": "#000000",
+            "fontSize": 12,
+            "backgroundColor": "#ffffff",
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "title":"Title",
+            "bullets": [
+              "Point 1",
+              "Point 2"
+            ]
           }
       };
       break;

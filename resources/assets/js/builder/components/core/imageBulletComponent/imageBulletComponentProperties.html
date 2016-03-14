@@ -1,0 +1,84 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Rich Text {{id}} Properties
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="form-group">
+          <label>Content</label>
+          <div class="form-group">
+            <textarea data-ng-model="edm.components[id].properties.content" rg-edm-rich-text-editor></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Font Family</label>
+          <div class="form-group" data-ng-include="edm.componentFontFamilyOptionsURL">
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Font Size(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.fontSize">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Font Color</label>
+          <div class="form-group">
+            <input type="text" colorpicker class="form-control" data-ng-model="edm.components[id].properties.fontColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Background Color</label>
+          <div class="form-group">
+            <input type="text" colorpicker class="form-control" data-ng-model="edm.components[id].properties.backgroundColor">
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label>Padding Top(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.paddingTop">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Padding Bottom(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.paddingBottom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Padding Left(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.paddingLeft">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Padding Right(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.paddingRight">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          Other
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body" data-ng-include="edm.componentDefaultsURL">
+
+      </div>
+    </div>
+  </div>
+</div>

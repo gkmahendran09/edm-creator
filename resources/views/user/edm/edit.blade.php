@@ -15,7 +15,7 @@
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-sm-12">
-										Components
+										Components <button class="btn btn-default toolbox-toggler"><span class="glyphicon glyphicon-wrench"></span> Hide</button>
 									</div>
 								</div>
 							</div>
@@ -24,8 +24,7 @@
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('banner');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Banner</a>
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Text</a>
 									<a href="javascript:void(0);" data-ng-click="edm.addComponent('rich-text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Rich Text</a>
-									<a href="javascript:void(0);" data-ng-click="edm.addComponent('header');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Header</a>
-									<a href="javascript:void(0);" data-ng-click="edm.addComponent('header_para');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Header + Para</a>
+									<a href="javascript:void(0);" data-ng-click="edm.addComponent('image-bullet');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Image + Bullet</a>
 								</div>
 							</div>
 						</div>
@@ -38,19 +37,20 @@
 								</div>
 							</div>
 							<div class="panel-body table-responsive">
-								<a href="{{route('user.edm.get_asset_manager', ['id' => $edm->id])}}" class="btn btn-block btn-success" title="Asset Manager">
+								<a data-ng-disabled="edm.changed" data-ng-attr-href="@{{edm.changed ? '#' : edm.assetManagerURL }}" data-ng-attr-title="@{{edm.changed ? 'Save the EDM to continue' : 'Go to Asset Manager' }}" class="btn btn-block btn-success">
 									<span class="glyphicon glyphicon-folder-open"></span> Asset
 								</a>
 							</div>
 						</div>
+
 					</div>
 				</div>
-				<div class="col-md-8 col-md-offset-1" id="edm-builder">
+				<div class="col-md-9" id="edm-builder">
 					<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-sm-6">
-										Edit: {{$edm->edm_name}}
+										Edit: {{$edm->edm_name}}  <button class="btn btn-default toolbox-toggler"><span class="glyphicon glyphicon-wrench"></span> Toolbox</button>
 									</div>
 									<div class="col-sm-5 col-sm-offset-1">
 										<div class="row">
@@ -62,13 +62,13 @@
 													<input type="hidden" name="html" id="form_html" value="{{$edm->html}}">
 													<input type="hidden" name="scope_values" id="form_scope_values" value="{{$edm->scope_values}}">
 
-													<button type="submit" class="btn btn-success btn-xs edm-menu-button">
+													<button type="submit" class="btn btn-success edm-menu-button" data-ng-disabled="!edm.changed">
 														<span class="glyphicon glyphicon-cloud-upload"></span> Save [s]
 													</button>
 												</form>
 											</div>
 											<div class="col-sm-4 text-right">
-												<a href="{{route('user.edm.preview', ['id' => $edm->id])}}" target="_blank" class="btn btn-primary btn-xs edm-menu-button">
+												<a  data-ng-disabled="edm.changed" data-ng-attr-href="@{{edm.changed ? '#' : edm.previewURL }}" data-ng-attr-title="@{{edm.changed ? 'Save the EDM to continue' : 'Preview EDM' }}" data-ng-attr-target="@{{edm.changed ? '' : '_blank' }}" class="btn btn-primary edm-menu-button">
 													<span class="glyphicon glyphicon-link"></span> Preview Link
 												</a>
 											</div>
@@ -77,7 +77,7 @@
 
 													{{ csrf_field() }}
 
-													<button type="submit"  class="btn btn-default btn-xs edm-menu-button">
+													<button type="submit"  class="btn btn-default edm-menu-button"  data-ng-disabled="edm.changed">
 														<span class="glyphicon glyphicon-download"></span> Download Package
 													</button>
 												</form>
@@ -111,9 +111,18 @@
 
 @section('scripts')
 	<script>
+
 		function getImageUploadURL() {
 			{{-- var url = "{{route('user.edm.image_upload', ['id' => $edm->id])}}"; --}}
 			return ;
+		}
+
+		function getAssetManagerURL() {
+			return '{{route('user.edm.get_asset_manager', ['id' => $edm->id])}}';
+		}
+
+		function getPreviewURL() {
+			return '{{route('user.edm.preview', ['id' => $edm->id])}}';
 		}
 
 		function getScopeValues() {

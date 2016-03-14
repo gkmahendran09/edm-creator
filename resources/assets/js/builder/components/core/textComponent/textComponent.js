@@ -13,6 +13,7 @@ function textComponent() {
 }
 
 function textComponentLinkFunction(scope, elem, attrs) {
+
   elem.bind('click', function() {
     $(".edm-component").removeClass("active");
     elem.addClass("active");

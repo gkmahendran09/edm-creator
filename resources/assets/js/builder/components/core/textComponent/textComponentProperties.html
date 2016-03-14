@@ -10,9 +10,23 @@
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="form-group">
+          <label>Format</label>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" data-ng-model="edm.components[id].properties.fontWeight" data-ng-true-value="'bold'" data-ng-false-value="'normal'"> Bold
+            </label>
+            <label>
+              <input type="checkbox" data-ng-model="edm.components[id].properties.fontStyle" data-ng-true-value="'italic'" data-ng-false-value="'normal'"> Italic
+            </label>
+            <label>
+              <input type="checkbox" data-ng-model="edm.components[id].properties.textDecoration" data-ng-true-value="'underline'" data-ng-false-value="'none'"> Underline
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
           <label>Content</label>
           <div class="form-group">
-            <textarea class="form-control" data-ng-model="edm.components[id].properties.content"></textarea>            
+            <textarea class="form-control" data-ng-model="edm.components[id].properties.content"></textarea>
           </div>
         </div>
         <div class="form-group">
@@ -39,6 +53,16 @@
             <input type="text" colorpicker class="form-control" data-ng-model="edm.components[id].properties.backgroundColor">
           </div>
         </div>
+        <div class="form-group">
+          <label>Text Align</label>
+          <div class="form-group">
+            <select class="form-control" data-ng-model="edm.components[id].properties.textAlign">
+              <option></option>
+              <option data-ng-repeat='t in ["left", "right", "center"]' value="{{t}}">{{t}}</option>
+            </select>
+          </div>
+        </div>
+
         <hr>
         <div class="form-group">
           <label>Padding Top(px)</label>
@@ -64,6 +88,54 @@
             <input type="number" class="form-control" data-ng-model="edm.components[id].properties.paddingRight">
           </div>
         </div>
+
+        <hr>
+        <div class="form-group">
+          <label>Border Top</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderTopWidth">px
+            <select data-ng-model="edm.components[id].properties.borderTopStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderTopColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Bottom</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderBottomWidth">px
+            <select data-ng-model="edm.components[id].properties.borderBottomStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderBottomColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Left</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderLeftWidth">px
+            <select data-ng-model="edm.components[id].properties.borderLeftStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderLeftColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Right</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderRightWidth">px
+            <select data-ng-model="edm.components[id].properties.borderRightStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderRightColor">
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
