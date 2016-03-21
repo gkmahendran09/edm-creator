@@ -124,7 +124,24 @@ function getComponentData(componentName, id, orderId) {
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
-            "content":"New Rich Text Component"
+            "content":"New Rich Text Component",
+            "textAlign": "left",
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+            "borderTopStyle": 'solid',
+            "borderBottomStyle": 'solid',
+            "borderLeftStyle": 'solid',
+            "borderRightStyle": 'solid',
+            "borderTopColor": 'none',
+            "borderBottomColor": 'none',
+            "borderLeftColor": 'none',
+            "borderRightColor": 'none',
+            "borderTopWidth": 0,
+            "borderBottomWidth": 0,
+            "borderLeftWidth": 0,
+            "borderRightWidth": 0,
           }
       };
       break;
@@ -133,19 +150,72 @@ function getComponentData(componentName, id, orderId) {
         "order": orderId,
         "directiveName": "<rgedm-image-bullet-component id=\"" + id + "\" edm=\"edm\"></rgedm-image-bullet-component>",
         "properties": {
-            "fontFamily": "Arial",
-            "fontColor": "#000000",
-            "fontSize": 12,
-            "backgroundColor": "#ffffff",
+            "backgroundColor": "#988672",
             "paddingTop": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
-            "title":"Title",
-            "bullets": [
-              "Point 1",
-              "Point 2"
-            ]
+            "heading": 'Heading 1',
+            "headingFontFamily": "Arial",
+            "headingFontColor": "#ffffff",
+            "headingFontSize": 20,
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+        "imgProperties": [{
+            "haveLink": false,
+            "linkURL": "",
+            "src": "",
+            "alt": "Image",
+            "title": "Image",
+            "width": 160
+          }],
+        "bulletProperties": [
+          {
+            "fontFamily": "Arial",
+            "fontColor": "#ffffff",
+            "fontSize": 16,
+            "content": "Point 1"
+          }, {
+            "fontFamily": "Arial",
+            "fontColor": "#ffffff",
+            "fontSize": 16,
+            "content": "Point 2"
+          }
+        ]
+      };
+      break;
+    case 'image-para':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-image-para-component id=\"" + id + "\" edm=\"edm\"></rgedm-image-para-component>",
+        "properties": {
+            "backgroundColor": "#988672",
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "heading": 'Heading 1',
+            "headingFontFamily": "Arial",
+            "headingFontColor": "#ffffff",
+            "headingFontSize": 20,
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+        "imgProperties": [{
+            "haveLink": false,
+            "linkURL": "",
+            "src": "",
+            "alt": "Image",
+            "title": "Image",
+            "width": 160
+          }],
+        "paraProperties": {
+            "content": "New Paragraph content"
           }
       };
       break;

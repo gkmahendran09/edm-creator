@@ -19,12 +19,34 @@
 									</div>
 								</div>
 							</div>
-							<div class="panel-body table-responsive">
-								<div class="list-group">
-									<a href="javascript:void(0);" data-ng-click="edm.addComponent('banner');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Banner</a>
-									<a href="javascript:void(0);" data-ng-click="edm.addComponent('text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Text</a>
-									<a href="javascript:void(0);" data-ng-click="edm.addComponent('rich-text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Rich Text</a>
-									<a href="javascript:void(0);" data-ng-click="edm.addComponent('image-bullet');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Image + Bullet</a>
+							<div class="panel-body table-responsive" id="component-list-parent">
+								<div class="panel panel-default">
+
+									<!-- Basic Components -->
+									<div class="panel-heading">
+										<a href="#basic" data-toggle="collapse" data-parent="#component-list-parent">Basic</a>
+									</div>
+									<div class="panel-body panel-collapse collapse in" id="basic">
+										<div class="list-group">
+											<a href="javascript:void(0);" data-ng-click="edm.addComponent('banner');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Banner</a>
+											<a href="javascript:void(0);" data-ng-click="edm.addComponent('text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Text</a>
+											<a href="javascript:void(0);" data-ng-click="edm.addComponent('rich-text');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Rich Text</a>
+										</div>
+									</div>
+									<!--// Basic Components -->
+
+									<!-- Featured Images -->
+									<div class="panel-heading">
+										<a href="#featured-image" data-toggle="collapse" data-parent="#component-list-parent">Featured Images</a>
+									</div>
+									<div class="panel-body panel-collapse collapse" id="featured-image">
+										<div class="list-group">
+											<a href="javascript:void(0);" data-ng-click="edm.addComponent('image-bullet');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Image + Bullet</a>
+											<a href="javascript:void(0);" data-ng-click="edm.addComponent('image-para');" class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Image + Para</a>
+										</div>
+									</div>
+									<!--// Basic Components -->
+
 								</div>
 							</div>
 						</div>
@@ -87,6 +109,9 @@
 								</div>
 							</div>
 							<div class="panel-body table-responsive">
+								{{-- <pre style="position: absolute; right: 0; max-width: 500px; overflow: auto;">
+									@{{ edm | json }}
+								</pre> --}}
 								<p class="lead">
 									Page Title: @{{edm.properties.pageTitle}}
 								</p>

@@ -23,7 +23,7 @@ function basenameFilter() {
       return val;
   }
 }
-
+var count = 0;
 function orderObjectByFilter() {
   return function(items, field, reverse) {
     var filtered = [];
@@ -34,6 +34,7 @@ function orderObjectByFilter() {
       return (a[field] > b[field] ? 1 : -1);
     });
     if(reverse) filtered.reverse();
+
     return filtered;
   };
 }
@@ -112,12 +113,12 @@ function edmController($scope, $compile, $window) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet') {
+        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet' || template == 'image-para') {          
           $scope.edm.lastComponentId++;
           var lastComponentId = $scope.edm.lastComponentId;
           var totalComponents = $scope.edm.totalComponents;
 
-          var newComponent = getComponentData(template, lastComponentId, totalComponents);
+          var newComponent = getComponentData(template, lastComponentId, totalComponents); // componentName, id, orderId
           if(newComponent != "") {
             $scope.edm.components[lastComponentId] = newComponent;
 
@@ -136,14 +137,19 @@ function edmController($scope, $compile, $window) {
       // Delete a Component
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
+
+
             var currentOrderId = $scope.edm.components[id].order;
             delete $scope.edm.components[id];
 
+
             $scope.edm.totalComponents--;
+
 
             if($scope.edm.totalComponents < 0) {
               $scope.edm.totalComponents = 0;
             }
+
 
             angular.forEach($scope.edm.components, function(component) {
               if(component.order > currentOrderId) {
@@ -152,6 +158,7 @@ function edmController($scope, $compile, $window) {
             });
 
             $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
+
             alert("Component " + id + " Deleted");
           }
       };
@@ -184,6 +191,30 @@ function edmController($scope, $compile, $window) {
               component.order = currentOrderId;
             }
           });
+      };
+
+      // Clone a Component
+      $scope.edm.clone = function(orderId) {
+
+
+          $scope.edm.lastComponentId++;
+          var lastComponentId = $scope.edm.lastComponentId;
+          var totalComponents = $scope.edm.totalComponents;
+
+          var newComponent = (JSON.parse(JSON.stringify($scope.edm.components[orderId])));
+
+          newComponent.order = totalComponents;
+          var newDirective = newComponent.directiveName;
+
+          newComponent.directiveName = newDirective.replace(/id="(\d*)"/g, 'id="' + lastComponentId + '"');
+
+          $scope.edm.components[lastComponentId] = newComponent;
+
+
+          $scope.edm.totalComponents++;
+
+          $scope.edm.save(); // Quick fix - Save the edm
+
       };
 
     //--------------------------------------------------------------------------
@@ -316,7 +347,24 @@ function getComponentData(componentName, id, orderId) {
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
-            "content":"New Rich Text Component"
+            "content":"New Rich Text Component",
+            "textAlign": "left",
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+            "borderTopStyle": 'solid',
+            "borderBottomStyle": 'solid',
+            "borderLeftStyle": 'solid',
+            "borderRightStyle": 'solid',
+            "borderTopColor": 'none',
+            "borderBottomColor": 'none',
+            "borderLeftColor": 'none',
+            "borderRightColor": 'none',
+            "borderTopWidth": 0,
+            "borderBottomWidth": 0,
+            "borderLeftWidth": 0,
+            "borderRightWidth": 0,
           }
       };
       break;
@@ -325,19 +373,72 @@ function getComponentData(componentName, id, orderId) {
         "order": orderId,
         "directiveName": "<rgedm-image-bullet-component id=\"" + id + "\" edm=\"edm\"></rgedm-image-bullet-component>",
         "properties": {
-            "fontFamily": "Arial",
-            "fontColor": "#000000",
-            "fontSize": 12,
-            "backgroundColor": "#ffffff",
+            "backgroundColor": "#988672",
             "paddingTop": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
-            "title":"Title",
-            "bullets": [
-              "Point 1",
-              "Point 2"
-            ]
+            "heading": 'Heading 1',
+            "headingFontFamily": "Arial",
+            "headingFontColor": "#ffffff",
+            "headingFontSize": 20,
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+        "imgProperties": [{
+            "haveLink": false,
+            "linkURL": "",
+            "src": "",
+            "alt": "Image",
+            "title": "Image",
+            "width": 160
+          }],
+        "bulletProperties": [
+          {
+            "fontFamily": "Arial",
+            "fontColor": "#ffffff",
+            "fontSize": 16,
+            "content": "Point 1"
+          }, {
+            "fontFamily": "Arial",
+            "fontColor": "#ffffff",
+            "fontSize": 16,
+            "content": "Point 2"
+          }
+        ]
+      };
+      break;
+    case 'image-para':
+      data =  {
+        "order": orderId,
+        "directiveName": "<rgedm-image-para-component id=\"" + id + "\" edm=\"edm\"></rgedm-image-para-component>",
+        "properties": {
+            "backgroundColor": "#988672",
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "heading": 'Heading 1',
+            "headingFontFamily": "Arial",
+            "headingFontColor": "#ffffff",
+            "headingFontSize": 20,
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+        "imgProperties": [{
+            "haveLink": false,
+            "linkURL": "",
+            "src": "",
+            "alt": "Image",
+            "title": "Image",
+            "width": 160
+          }],
+        "paraProperties": {
+            "content": "New Paragraph content"
           }
       };
       break;

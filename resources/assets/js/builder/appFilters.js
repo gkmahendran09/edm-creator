@@ -23,7 +23,7 @@ function basenameFilter() {
       return val;
   }
 }
-
+var count = 0;
 function orderObjectByFilter() {
   return function(items, field, reverse) {
     var filtered = [];
@@ -34,6 +34,7 @@ function orderObjectByFilter() {
       return (a[field] > b[field] ? 1 : -1);
     });
     if(reverse) filtered.reverse();
+
     return filtered;
   };
 }

@@ -72,12 +72,12 @@ function edmController($scope, $compile, $window) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet') {
+        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet' || template == 'image-para') {          
           $scope.edm.lastComponentId++;
           var lastComponentId = $scope.edm.lastComponentId;
           var totalComponents = $scope.edm.totalComponents;
 
-          var newComponent = getComponentData(template, lastComponentId, totalComponents);
+          var newComponent = getComponentData(template, lastComponentId, totalComponents); // componentName, id, orderId
           if(newComponent != "") {
             $scope.edm.components[lastComponentId] = newComponent;
 
@@ -96,14 +96,19 @@ function edmController($scope, $compile, $window) {
       // Delete a Component
       $scope.edm.deleteComponent = function(id) {
           if(confirm("Are you sure to delete this component?")) {
+
+
             var currentOrderId = $scope.edm.components[id].order;
             delete $scope.edm.components[id];
 
+
             $scope.edm.totalComponents--;
+
 
             if($scope.edm.totalComponents < 0) {
               $scope.edm.totalComponents = 0;
             }
+
 
             angular.forEach($scope.edm.components, function(component) {
               if(component.order > currentOrderId) {
@@ -112,6 +117,7 @@ function edmController($scope, $compile, $window) {
             });
 
             $scope.edm.showProperties('<rgedm-edm-component-properties></rgedm-edm-component-properties>');
+
             alert("Component " + id + " Deleted");
           }
       };
@@ -144,6 +150,30 @@ function edmController($scope, $compile, $window) {
               component.order = currentOrderId;
             }
           });
+      };
+
+      // Clone a Component
+      $scope.edm.clone = function(orderId) {
+
+
+          $scope.edm.lastComponentId++;
+          var lastComponentId = $scope.edm.lastComponentId;
+          var totalComponents = $scope.edm.totalComponents;
+
+          var newComponent = (JSON.parse(JSON.stringify($scope.edm.components[orderId])));
+
+          newComponent.order = totalComponents;
+          var newDirective = newComponent.directiveName;
+
+          newComponent.directiveName = newDirective.replace(/id="(\d*)"/g, 'id="' + lastComponentId + '"');
+
+          $scope.edm.components[lastComponentId] = newComponent;
+
+
+          $scope.edm.totalComponents++;
+
+          $scope.edm.save(); // Quick fix - Save the edm
+
       };
 
     //--------------------------------------------------------------------------

@@ -39,6 +39,62 @@
             <input type="text" colorpicker class="form-control" data-ng-model="edm.components[id].properties.backgroundColor">
           </div>
         </div>
+        <div class="form-group">
+          <label>Text Align</label>
+          <div class="form-group">
+            <select class="form-control" data-ng-model="edm.components[id].properties.textAlign">
+              <option></option>
+              <option data-ng-repeat='t in ["left", "right", "center"]' value="{{t}}">{{t}}</option>
+            </select>
+          </div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+          <label>Border Top</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderTopWidth">px
+            <select data-ng-model="edm.components[id].properties.borderTopStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderTopColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Bottom</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderBottomWidth">px
+            <select data-ng-model="edm.components[id].properties.borderBottomStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderBottomColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Left</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderLeftWidth">px
+            <select data-ng-model="edm.components[id].properties.borderLeftStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderLeftColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Right</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderRightWidth">px
+            <select data-ng-model="edm.components[id].properties.borderRightStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderRightColor">
+          </div>
+        </div>
+
         <hr>
         <div class="form-group">
           <label>Padding Top(px)</label>
@@ -64,6 +120,33 @@
             <input type="number" class="form-control" data-ng-model="edm.components[id].properties.paddingRight">
           </div>
         </div>
+
+        <hr>
+        <div class="form-group">
+          <label>Margin Top(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.marginTop" data-ng-pattern="/^[0-9]{1,7}$/">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Margin Bottom(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.marginBottom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Margin Left(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.marginLeft">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Margin Right(px)</label>
+          <div class="form-group">
+            <input type="number" class="form-control" data-ng-model="edm.components[id].properties.marginRight">
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

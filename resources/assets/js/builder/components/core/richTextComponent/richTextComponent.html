@@ -1,6 +1,20 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="edm-component">
   <tr>
-    <td valign="top" style="background:{{edm.components[id].properties.backgroundColor}};color:{{edm.components[id].properties.fontColor}};font-size:{{edm.components[id].properties.fontSize}}px;font-family:{{edm.components[id].properties.fontFamily}};padding-top:{{edm.components[id].properties.paddingTop}}px;padding-bottom:{{edm.components[id].properties.paddingBottom}}px;padding-right:{{edm.components[id].properties.paddingRight}}px;padding-left:{{edm.components[id].properties.paddingLeft}}px;" data-ng-bind-html="edm.components[id].properties.content | trustAsHtml">      
+    <td data-ng-if="edm.components[id].properties.marginLeft > 0" width="{{edm.components[id].properties.marginLeft}}" valign="top"></td>
+    <td valign="top">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr data-ng-if="edm.components[id].properties.marginTop > 0">
+          <td height="{{edm.components[id].properties.marginTop}}" valign="top"></td>
+        </tr>
+        <tr>
+          <td valign="top" style="border-top: {{edm.components[id].properties.borderTopWidth}}px {{edm.components[id].properties.borderTopStyle}} {{edm.components[id].properties.borderTopColor}};border-bottom: {{edm.components[id].properties.borderBottomWidth}}px {{edm.components[id].properties.borderBottomStyle}} {{edm.components[id].properties.borderBottomColor}};border-left: {{edm.components[id].properties.borderLeftWidth}}px {{edm.components[id].properties.borderLeftStyle}} {{edm.components[id].properties.borderLeftColor}};border-right: {{edm.components[id].properties.borderRightWidth}}px {{edm.components[id].properties.borderRightStyle}} {{edm.components[id].properties.borderRightColor}};text-align:{{edm.components[id].properties.textAlign}};background:{{edm.components[id].properties.backgroundColor}};color:{{edm.components[id].properties.fontColor}};font-size:{{edm.components[id].properties.fontSize}}px;font-family:{{edm.components[id].properties.fontFamily}};padding-top:{{edm.components[id].properties.paddingTop}}px;padding-bottom:{{edm.components[id].properties.paddingBottom}}px;padding-right:{{edm.components[id].properties.paddingRight}}px;padding-left:{{edm.components[id].properties.paddingLeft}}px;" data-ng-bind-html="edm.components[id].properties.content | trustAsHtml">
+          </td>
+        </tr>
+        <tr data-ng-if="edm.components[id].properties.marginBottom > 0">
+          <td height="{{edm.components[id].properties.marginBottom}}" valign="top"></td>
+        </tr>
+      </table>
     </td>
+    <td data-ng-if="edm.components[id].properties.marginRight > 0" width="{{edm.components[id].properties.marginRight}}" valign="top"></td>
   </tr>
 </table>

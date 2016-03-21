@@ -24,10 +24,20 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 				scope.edm.formatSelection('createLink', false, val);
 			});
 
-			$interval(function() {
+			var stop = $interval(function() {
 				ngModel.$setViewValue(editor.body.innerHTML);
 			}, 500);
 
+			elem.on('$destroy', function() {
+				scope.stopInterval();
+			});
+
+			scope.stopInterval = function() {
+        if (angular.isDefined(stop)) {
+          $interval.cancel(stop);
+          stop = undefined;
+        }
+      };
 
 			elem.jhtmlareaObject = this;
 

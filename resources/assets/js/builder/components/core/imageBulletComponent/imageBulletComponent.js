@@ -36,5 +36,33 @@ function imageBulletComponentProperties() {
           edm: '='
         },
         templateUrl   : getTemplateURL("/components/core/imageBulletComponent/imageBulletComponentProperties.html"),
+        link          : rgedmImageBulletComponentPropertiesFunction
     }
+}
+
+function rgedmImageBulletComponentPropertiesFunction(scope, elem, attrs) {
+  var s = scope;
+
+  // Add Point
+  $('.add-point').click(function() {
+    var id = $(this).data("id");
+    var point = {
+      "fontFamily": "Arial",
+      "fontColor": "#ffffff",
+      "fontSize": 16,
+      "content": "Point"
+    };
+    s.edm.components[id].bulletProperties.push(point);
+    s.$apply();
+  });
+
+  // Delete Point
+  $('body').on('click', '.delete-point', function() {
+    var id = $(this).data("id");
+    var index = $(this).data("index");
+    alert('delete-point: id = '+ id);
+
+    s.edm.components[id].bulletProperties.splice(index, 1);
+    s.$apply();
+  });
 }
