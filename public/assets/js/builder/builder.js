@@ -1,5 +1,7 @@
 angular.module('app.filters', ['ngSanitize']).filter('trustAsHtml', trustAsHTMLFilter);
 
+angular.module('app.filters').filter('faviconURL', faviconURLFilter);
+
 angular.module('app.filters').filter('assetURL', assetURLFilter);
 
 angular.module('app.filters').filter('basename', basenameFilter);
@@ -8,6 +10,19 @@ angular.module('app.filters').filter('orderObjectBy', orderObjectByFilter);
 
 function trustAsHTMLFilter($sce) {
   return $sce.trustAsHtml;
+}
+
+function faviconURLFilter() {
+  return function(items) {
+      var filtered = [];
+      angular.forEach(items, function(item) {
+        if(item.search('.ico') != -1) {
+          filtered.push(item);
+        }
+      });
+
+      return filtered;
+  }
 }
 
 function assetURLFilter() {
@@ -46,7 +61,7 @@ function edmController($scope, $compile, $window) {
     // EDM Data
     $scope.edm = getScopeValues();
 
-    $scope.edm.changed = false;
+    $scope.edm.changed = false;    
 
     $scope.edm.assetManagerURL                = getAssetManagerURL();
 
@@ -113,7 +128,7 @@ function edmController($scope, $compile, $window) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet' || template == 'image-para') {          
+        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet' || template == 'image-para') {
           $scope.edm.lastComponentId++;
           var lastComponentId = $scope.edm.lastComponentId;
           var totalComponents = $scope.edm.totalComponents;

@@ -1,5 +1,7 @@
 angular.module('app.filters', ['ngSanitize']).filter('trustAsHtml', trustAsHTMLFilter);
 
+angular.module('app.filters').filter('faviconURL', faviconURLFilter);
+
 angular.module('app.filters').filter('assetURL', assetURLFilter);
 
 angular.module('app.filters').filter('basename', basenameFilter);
@@ -8,6 +10,19 @@ angular.module('app.filters').filter('orderObjectBy', orderObjectByFilter);
 
 function trustAsHTMLFilter($sce) {
   return $sce.trustAsHtml;
+}
+
+function faviconURLFilter() {
+  return function(items) {
+      var filtered = [];
+      angular.forEach(items, function(item) {
+        if(item.search('.ico') != -1) {
+          filtered.push(item);
+        }
+      });
+
+      return filtered;
+  }
 }
 
 function assetURLFilter() {

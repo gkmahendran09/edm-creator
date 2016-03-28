@@ -29,10 +29,70 @@
           <label>EDM Height</label>
           <input type="text" class="form-control" required data-ng-model="edm.properties.height">
         </div>
+
+        <hr>
         <div class="form-group">
-          <label>EDM Border Color</label>
-          <input colorpicker type="text" class="form-control" required data-ng-model="edm.properties.borderColor">
+          <label>Present Favicon</label>
+          <img ng-attr-src="{{edm.properties.faviconURL}}"  style="max-width: 100px;" alt="No Favicon">
         </div>
+        <div class="form-group">
+          <label>Change Favicon</label>
+          <div class="list-group">
+            <p data-ng-click="edm.properties.faviconURL = (i | assetURL)" data-ng-repeat="i in edm.imageAssets | faviconURL" class="list-group-item">
+              <img ng-attr-src="{{i | assetURL}}"  style="max-width: 100px;" alt="No Favicon">
+            </p>
+          </div>
+        </div>
+
+
+        <hr>
+        <div class="form-group">
+          <label>Border Top</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderTopWidth">px
+            <select data-ng-model="edm.components[id].properties.borderTopStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderTopColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Bottom</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderBottomWidth">px
+            <select data-ng-model="edm.components[id].properties.borderBottomStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderBottomColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Left</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderLeftWidth">px
+            <select data-ng-model="edm.components[id].properties.borderLeftStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderLeftColor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Border Right</label>
+          <div class="form-group">
+            <input type="number" data-ng-model="edm.components[id].properties.borderRightWidth">px
+            <select data-ng-model="edm.components[id].properties.borderRightStyle">
+              <option></option>
+              <option data-ng-repeat='s in ["solid", "dashed", "dotted"]' value="{{s}}">{{s}}</option>
+            </select>
+            <input type="text" colorpicker data-ng-model="edm.components[id].properties.borderRightColor">
+          </div>
+        </div>
+
+
+        <hr>
         <div class="form-group">
           <label>EDM Padding Top(px)</label>
           <input type="number" class="form-control" required data-ng-model="edm.properties.paddingTop">

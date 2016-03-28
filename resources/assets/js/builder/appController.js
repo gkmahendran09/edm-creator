@@ -5,7 +5,7 @@ function edmController($scope, $compile, $window) {
     // EDM Data
     $scope.edm = getScopeValues();
 
-    $scope.edm.changed = false;
+    $scope.edm.changed = false;    
 
     $scope.edm.assetManagerURL                = getAssetManagerURL();
 
@@ -72,7 +72,7 @@ function edmController($scope, $compile, $window) {
       // Add a Component
       $scope.edm.addComponent = function(template) {
 
-        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet' || template == 'image-para') {          
+        if(template == 'banner' || template == 'text' || template == 'rich-text' || template == 'image-bullet' || template == 'image-para') {
           $scope.edm.lastComponentId++;
           var lastComponentId = $scope.edm.lastComponentId;
           var totalComponents = $scope.edm.totalComponents;

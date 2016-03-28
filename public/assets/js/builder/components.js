@@ -44,15 +44,19 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 			elem.jhtmlareaObject = this;
 
       var textarea = this.textarea = $(elem);
-      var container = this.container = $("<div/>").addClass("jHtmlArea").width(textarea.width()).insertAfter(textarea);
+      // var container = this.container = $("<div/>").addClass("jHtmlArea").width(textarea.width()).insertAfter(textarea);
+      var container = this.container = $("<div/>").addClass("jHtmlArea").width("100%").insertAfter(textarea);
 
       var toolbar = this.toolbar = $("<div/>").addClass("ToolBar").appendTo(container);
-      toolbar.html($compile('<div class="btn-group"> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'bold\', false, null);"> <span class="glyphicon glyphicon-bold"></span> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'italic\', false, null);"> <span class="glyphicon glyphicon-italic"></span> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'underline\', false, null);"> <u><b>U</b></u> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'strikeThrough\', false, null);"> <strike>S</strike> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'strikeThrough\', false, null);"> <span class="glyphicon glyphicon-font"></span> </button> <div class="btn-group"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-text-color"></span> </button> <ul class="dropdown-menu"> <li> <a href="javascript:void(0);"> <input type="text" data-ng-model="edm.foreColor" colorpicker> </a> </li></ul> </div><div class="btn-group"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-text-background"></span> </button> <ul class="dropdown-menu"> <li> <a href="javascript:void(0);"> <input type="text" data-ng-model="edm.backColor" colorpicker> </a> </li></ul> </div><div class="btn-group"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-link"></span> </button> <ul class="dropdown-menu"> <li> <a href="javascript:void(0);"> <input type="text" data-ng-model="edm.createLink"> </a> </li></ul> </div><button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'unlink\', false, null);"> <span class="glyphicon glyphicon-remove"></span> </button> </div>')(scope));
+      toolbar.html($compile('<style>.jHtmlArea.fullScreen { bottom: 0; top: 0; left: 0; right: 0; position: fixed; background: #fff; } .jHtmlArea.fullScreen iframe { height: 100%; }</style><div class="btn-group"> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'bold\', false, null);"> <span class="glyphicon glyphicon-bold"></span> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'italic\', false, null);"> <span class="glyphicon glyphicon-italic"></span> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'underline\', false, null);"> <u><b>U</b></u> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'strikeThrough\', false, null);"> <strike>S</strike> </button> <button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'strikeThrough\', false, null);"> <span class="glyphicon glyphicon-font"></span> </button> <div class="btn-group"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-text-color"></span> </button> <ul class="dropdown-menu"> <li> <a href="javascript:void(0);"> <input type="text" data-ng-model="edm.foreColor" colorpicker> </a> </li></ul> </div><div class="btn-group"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-text-background"></span> </button> <ul class="dropdown-menu"> <li> <a href="javascript:void(0);"> <input type="text" data-ng-model="edm.backColor" colorpicker> </a> </li></ul> </div><div class="btn-group"> <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-link"></span> </button> <ul class="dropdown-menu"> <li> <a href="javascript:void(0);"> <input type="text" data-ng-model="edm.createLink"> </a> </li></ul> </div><button type="button" class="btn btn-default" data-ng-click="edm.formatSelection(\'unlink\', false, null);"> <span class="glyphicon glyphicon-remove"></span> </button><button type="button" class="btn btn-default" data-ng-click="edm.toggleFullScreen();" id="fullScreenTButton"> <span class="glyphicon glyphicon-fullscreen"></span> </button> </div>')(scope));
 
-      var iframe = this.iframe = $("<iframe/>").height(textarea.height());
-      iframe.width(textarea.width());
+      // var iframe = this.iframe = $("<iframe/>").height(textarea.height());
+			// iframe.width(textarea.width());
+      var iframe = this.iframe = $("<iframe/>");
+      // iframe.height("96%");
+      iframe.width("96%");
 
-      var htmlarea = this.htmlarea = $("<div/>").append(iframe);
+      var htmlarea = this.htmlarea = $("<div style='height: calc(100% - 30px);' />").append(iframe);
 
       container.append(htmlarea).append(textarea.hide());
 
@@ -64,9 +68,17 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 
 			scope.edm.formatSelection = function(a, b, c) {
 				// iframe[0].contentWindow.focus();
+				// console.log(iframe[0].contentDocument.defaultView.getSelection().toString());
+				var elem = iframe[0].contentDocument.defaultView.getSelection().getRangeAt(0).cloneContents();
+				console.log($("<p/>").append($(elem)).html());
 				$(editor).find('a').attr('target', '_blank');
 				editor.execCommand(a, b, c);
 
+			};
+
+			scope.edm.toggleFullScreen = function() {
+				$("#fullScreenTButton").find("span").toggleClass("glyphicon-fullscreen glyphicon-resize-small");
+				$(".jHtmlArea").toggleClass("fullScreen");
 			};
 
 			ngModel.$render = function () {
@@ -76,27 +88,24 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
   }
 });
 
-angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
+angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
 
-function bannerComponent() {
+function edmComponent() {
     return {
-        scope: {
-          id: '=',
-          edm: '='
+        scope : {
+          edm: '='          
         },
-        replace: true,
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
-        link          : bannerComponentLinkFunction
+        transclude    : true,
+        replace       : true,
+        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponent.html"),
+        link          : edmComponentLinkFunction
     }
 }
 
-function bannerComponentLinkFunction(scope, elem, attrs) {
+function edmComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    $(".edm-component").removeClass("active");
-    elem.addClass("active");
-    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
-    scope.edm.showProperties(propertiesTemplate);
-    return false;
+    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
+    // return false;
   });
 }
 
@@ -105,15 +114,11 @@ function bannerComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
+angular.module('app.components').directive('rgedmEdmComponentProperties', edmComponentProperties);
 
-function bannerComponentProperties() {
+function edmComponentProperties() {
     return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
+        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponentProperties.html"),
     }
 }
 
@@ -153,24 +158,27 @@ function componentProperties() {
     }
 }
 
-angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
+angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
 
-function edmComponent() {
+function bannerComponent() {
     return {
-        scope : {
-          edm: '='          
+        scope: {
+          id: '=',
+          edm: '='
         },
-        transclude    : true,
-        replace       : true,
-        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponent.html"),
-        link          : edmComponentLinkFunction
+        replace: true,
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
+        link          : bannerComponentLinkFunction
     }
 }
 
-function edmComponentLinkFunction(scope, elem, attrs) {
+function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
-    // return false;
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
+    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
   });
 }
 
@@ -179,11 +187,15 @@ function edmComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('rgedmEdmComponentProperties', edmComponentProperties);
+angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
 
-function edmComponentProperties() {
+function bannerComponentProperties() {
     return {
-        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponentProperties.html"),
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
     }
 }
 

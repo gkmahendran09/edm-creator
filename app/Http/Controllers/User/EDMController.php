@@ -22,8 +22,13 @@ class EDMController extends Controller
 	{
 		$scope_values = json_decode($edm->scope_values);
 
+
 		$html = $edm->html_header;
 		$html .= '<title>' . $scope_values->properties->pageTitle . '</title>';
+		if($scope_values->properties->faviconURL == "") {
+			$scope_values->properties->faviconURL = "images/favicon.ico";
+		}
+		$html .= '<link rel="shortcut icon" href="' . $scope_values->properties->faviconURL . '" />';
 		if($scope_values->properties->isResponsive) {
 			$html .= $edm->css;
 		}
@@ -40,6 +45,7 @@ class EDMController extends Controller
 
 		// relative links
 		if($relative_links) {
+			$html = preg_replace("/\/user\/edm\/front\-end\-asset\?path\=\/app\/edms\/(.*)\/images/", "images",$html);
 			$html .= preg_replace("/\/user\/edm\/front\-end\-asset\?path\=\/app\/edms\/(.*)\/images/", "images",$purehtml);
 		} else {
 			$html .= $purehtml;
@@ -268,7 +274,7 @@ class EDMController extends Controller
 		$edm = EDM::where('user_id', $user_id)->findOrFail($id);
 
 		$rules = array(
-			'image' => 'required|max:500|mimes:png,gif,jpeg,jpg'
+			'image' => 'required|max:500|mimes:png,gif,jpeg,jpg,ico'
 		);
 
 		$validator = Validator::make($request->all(), $rules);

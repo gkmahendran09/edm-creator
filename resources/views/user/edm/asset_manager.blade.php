@@ -79,7 +79,7 @@
 				        </div>
 
 								<div class="form-group list-group text-danger">
-									<p class="list-group-item">Supported Formats: .jpg, .png, .gif</p>
+									<p class="list-group-item">Supported Formats: .jpg, .png, .gif, .ico</p>
 									<p class="list-group-item">Max. File size: 500KB</p>
 								</div>
 

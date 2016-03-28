@@ -10,7 +10,8 @@
         "dapphp/securimage": "^3.6",
         "laravel/socialite": "^2.0",
         "chumper/zipper": "0.6.*",
-        "spatie/browsershot": "^1.4"
+        "spatie/browsershot": "^1.4",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
