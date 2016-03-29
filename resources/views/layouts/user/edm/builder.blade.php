@@ -55,7 +55,8 @@
   <!-- App Builder -->
   <script src="{{ elixir('assets/js/builder/builder.js') }}"></script>
 
-
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
 
 </head>

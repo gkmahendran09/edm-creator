@@ -161,5 +161,8 @@
 				// 	$("#edm_save_form").submit(); //TODO: ajax form submit
 				// }
 		};
+
+		$( ".bootbox" ).draggable({ handle: ".modal-header" });
+
 	</script>
 @endsection
