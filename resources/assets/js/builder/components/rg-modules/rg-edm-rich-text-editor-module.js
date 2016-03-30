@@ -23,10 +23,11 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 			// scope.$watch('edm.createLink', function(val) {
 			// 	scope.edm.formatSelection('createLink', false, val);
 			// });
-
+			//
 			var stop = $interval(function() {
-				ngModel.$setViewValue(editor.body.innerHTML);
+				ngModel.$setViewValue(edit.body.innerHTML);
 			}, 500);
+
 
 			elem.on('$destroy', function() {
 				scope.stopInterval();
@@ -147,7 +148,7 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 
 				} else {
 					// $(editor).find('a').attr('target', '_blank');
-					editor.execCommand(a, b, c);
+					edit.execCommand(a, b, c);
 				}
 
 
@@ -159,8 +160,9 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 			};
 
 			ngModel.$render = function () {
-				editor.body.innerHTML = ngModel.$viewValue;
+				edit.body.innerHTML = ngModel.$viewValue;
 			};
+
     }
   }
 });

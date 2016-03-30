@@ -25,10 +25,11 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 			// scope.$watch('edm.createLink', function(val) {
 			// 	scope.edm.formatSelection('createLink', false, val);
 			// });
-
+			//
 			var stop = $interval(function() {
-				ngModel.$setViewValue(editor.body.innerHTML);
+				ngModel.$setViewValue(edit.body.innerHTML);
 			}, 500);
+
 
 			elem.on('$destroy', function() {
 				scope.stopInterval();
@@ -149,7 +150,7 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 
 				} else {
 					// $(editor).find('a').attr('target', '_blank');
-					editor.execCommand(a, b, c);
+					edit.execCommand(a, b, c);
 				}
 
 
@@ -161,33 +162,31 @@ angular.module('rgEdmRichTextEditor.module', [ 'colorpicker.module'])
 			};
 
 			ngModel.$render = function () {
-				editor.body.innerHTML = ngModel.$viewValue;
+				edit.body.innerHTML = ngModel.$viewValue;
 			};
+
     }
   }
 });
 
-angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
+angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
 
-function bannerComponent() {
+function edmComponent() {
     return {
-        scope: {
-          id: '=',
-          edm: '='
+        scope : {
+          edm: '='          
         },
-        replace: true,
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
-        link          : bannerComponentLinkFunction
+        transclude    : true,
+        replace       : true,
+        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponent.html"),
+        link          : edmComponentLinkFunction
     }
 }
 
-function bannerComponentLinkFunction(scope, elem, attrs) {
+function edmComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    $(".edm-component").removeClass("active");
-    elem.addClass("active");
-    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
-    scope.edm.showProperties(propertiesTemplate);
-    return false;
+    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
+    // return false;
   });
 }
 
@@ -196,15 +195,11 @@ function bannerComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
+angular.module('app.components').directive('rgedmEdmComponentProperties', edmComponentProperties);
 
-function bannerComponentProperties() {
+function edmComponentProperties() {
     return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
+        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponentProperties.html"),
     }
 }
 
@@ -244,24 +239,27 @@ function componentProperties() {
     }
 }
 
-angular.module('app.components').directive('rgedmEdmComponent', edmComponent);
+angular.module('app.components').directive('rgedmBannerComponent', bannerComponent);
 
-function edmComponent() {
+function bannerComponent() {
     return {
-        scope : {
-          edm: '='          
+        scope: {
+          id: '=',
+          edm: '='
         },
-        transclude    : true,
-        replace       : true,
-        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponent.html"),
-        link          : edmComponentLinkFunction
+        replace: true,
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponent.html"),
+        link          : bannerComponentLinkFunction
     }
 }
 
-function edmComponentLinkFunction(scope, elem, attrs) {
+function bannerComponentLinkFunction(scope, elem, attrs) {
   elem.bind('click', function() {
-    // scope.edm.showProperties('<edm-component-properties></edm-component-properties>');
-    // return false;
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
+    var propertiesTemplate = '<rgedm-banner-component-properties edm="edm" id="' + attrs.id + '"></rgedm-banner-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
   });
 }
 
@@ -270,11 +268,15 @@ function edmComponentLinkFunction(scope, elem, attrs) {
 //--------------------------------
 
 
-angular.module('app.components').directive('rgedmEdmComponentProperties', edmComponentProperties);
+angular.module('app.components').directive('rgedmBannerComponentProperties', bannerComponentProperties);
 
-function edmComponentProperties() {
+function bannerComponentProperties() {
     return {
-        templateUrl   : getTemplateURL("/components/core/edmComponent/edmComponentProperties.html"),
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/bannerComponent/bannerComponentProperties.html"),
     }
 }
 
@@ -347,6 +349,89 @@ function rgedmImageParaComponentPropertiesFunction(scope, elem, attrs) {
   // });
 }
 
+angular.module('app.components').directive('rgedmTextComponent', textComponent);
+
+function textComponent() {
+    return {
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        replace: true,
+        templateUrl   : getTemplateURL("/components/core/textComponent/textComponent.html"),
+        link          : textComponentLinkFunction
+    }
+}
+
+function textComponentLinkFunction(scope, elem, attrs) {
+
+  elem.bind('click', function() {
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
+    var propertiesTemplate = '<rgedm-text-component-properties edm="edm" id="' + attrs.id + '"></rgedm-text-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
+  });
+}
+
+//--------------------------------
+//=> Component Properties
+//--------------------------------
+
+
+angular.module('app.components').directive('rgedmTextComponentProperties', textComponentProperties);
+
+function textComponentProperties() {
+    return {
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/textComponent/textComponentProperties.html"),
+    }
+}
+
+angular.module('app.components').directive('rgedmRichTextComponent', richTextComponent);
+
+function richTextComponent() {
+    return {
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        replace: true,
+        templateUrl   : getTemplateURL("/components/core/richTextComponent/richTextComponent.html"),
+        link          : richTextComponentLinkFunction
+    }
+}
+
+function richTextComponentLinkFunction(scope, elem, attrs) {
+  elem.bind('click', function() {
+    $(".edm-component").removeClass("active");
+    elem.addClass("active");
+    var propertiesTemplate = '<rgedm-rich-text-component-properties edm="edm" id="' + attrs.id + '"></rgedm-rich-text-component-properties>';
+    scope.edm.showProperties(propertiesTemplate);
+    return false;
+  });
+}
+
+//--------------------------------
+//=> Component Properties
+//--------------------------------
+
+
+angular.module('app.components').directive('rgedmRichTextComponentProperties', richTextComponentProperties);
+
+function richTextComponentProperties() {
+    return {
+        scope: {
+          id: '=',
+          edm: '='
+        },
+        templateUrl   : getTemplateURL("/components/core/richTextComponent/richTextComponentProperties.html"),
+    }
+}
+
 angular.module('app.components').directive('rgedmImageBulletComponent', imageBulletComponent);
 
 function imageBulletComponent() {
@@ -414,89 +499,6 @@ function rgedmImageBulletComponentPropertiesFunction(scope, elem, attrs) {
     s.edm.components[id].bulletProperties.splice(index, 1);
     s.$apply();
   });
-}
-
-angular.module('app.components').directive('rgedmRichTextComponent', richTextComponent);
-
-function richTextComponent() {
-    return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        replace: true,
-        templateUrl   : getTemplateURL("/components/core/richTextComponent/richTextComponent.html"),
-        link          : richTextComponentLinkFunction
-    }
-}
-
-function richTextComponentLinkFunction(scope, elem, attrs) {
-  elem.bind('click', function() {
-    $(".edm-component").removeClass("active");
-    elem.addClass("active");
-    var propertiesTemplate = '<rgedm-rich-text-component-properties edm="edm" id="' + attrs.id + '"></rgedm-rich-text-component-properties>';
-    scope.edm.showProperties(propertiesTemplate);
-    return false;
-  });
-}
-
-//--------------------------------
-//=> Component Properties
-//--------------------------------
-
-
-angular.module('app.components').directive('rgedmRichTextComponentProperties', richTextComponentProperties);
-
-function richTextComponentProperties() {
-    return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/richTextComponent/richTextComponentProperties.html"),
-    }
-}
-
-angular.module('app.components').directive('rgedmTextComponent', textComponent);
-
-function textComponent() {
-    return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        replace: true,
-        templateUrl   : getTemplateURL("/components/core/textComponent/textComponent.html"),
-        link          : textComponentLinkFunction
-    }
-}
-
-function textComponentLinkFunction(scope, elem, attrs) {
-
-  elem.bind('click', function() {
-    $(".edm-component").removeClass("active");
-    elem.addClass("active");
-    var propertiesTemplate = '<rgedm-text-component-properties edm="edm" id="' + attrs.id + '"></rgedm-text-component-properties>';
-    scope.edm.showProperties(propertiesTemplate);
-    return false;
-  });
-}
-
-//--------------------------------
-//=> Component Properties
-//--------------------------------
-
-
-angular.module('app.components').directive('rgedmTextComponentProperties', textComponentProperties);
-
-function textComponentProperties() {
-    return {
-        scope: {
-          id: '=',
-          edm: '='
-        },
-        templateUrl   : getTemplateURL("/components/core/textComponent/textComponentProperties.html"),
-    }
 }
 
 //# sourceMappingURL=components.js.map
