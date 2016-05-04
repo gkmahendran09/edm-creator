@@ -1,0 +1,10 @@
+{
+  "assets/css/app.css": "assets/css/app-f9c32a2dba.css",
+  "assets/css/builder.css": "assets/css/builder-13a3298a71.css",
+  "assets/css/builder/plugins.css": "assets/css/builder/plugins-d50a87ad21.css",
+  "assets/js/app.js": "assets/js/app-4cb71df268.js",
+  "assets/js/builder/builder.js": "assets/js/builder/builder-e1496ececc.js",
+  "assets/js/builder/components.js": "assets/js/builder/components-9d71487d4b.js",
+  "assets/js/builder/external-modules.js": "assets/js/builder/external-modules-f40778f4a7.js",
+  "assets/js/builder/plugins.js": "assets/js/builder/plugins-7b08ab46d3.js"
+}

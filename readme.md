@@ -1,4 +1,4 @@
-## laravel51_elixir_envoy_kit
+## Rage EDM Creator
 
 ### Installation
 
@@ -15,4 +15,3 @@ Step 5: Generate App key using Artisan (php artisan key:generate)
 Step 6: Install npm dependencies(npm install)
 
 Step 7: Execute gulp tasks (gulp)
-

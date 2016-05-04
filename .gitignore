@@ -1,8 +1,8 @@
-/vendor
-/node_modules
-Homestead.yaml
-Homestead.json
-.env
-Envoy.blade.php
-/public/build
-/public/apps
+# /vendor
+# /node_modules
+# Homestead.yaml
+# Homestead.json
+# .env
+# Envoy.blade.php
+# /public/build
+# /public/apps
