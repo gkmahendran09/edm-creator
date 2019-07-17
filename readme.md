@@ -1,4 +1,4 @@
-## Rage EDM Creator
+## EDM Creator
 
 ### Installation
 
